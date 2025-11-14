@@ -34,6 +34,9 @@ class Task(Base):
     xp_events = relationship("XPEvent", back_populates="task")
     conversation_sessions = relationship("ConversationSession", back_populates="task")
 
+    # LVO: Many-to-many relationship with skills (imported from skill.py)
+    skills = relationship("Skill", secondary="task_skills", back_populates="tasks")
+
     def __repr__(self):
         return f"<Task(id={self.id}, title={self.title})>"
 

@@ -6,6 +6,8 @@ from contextlib import asynccontextmanager
 from app.config import settings
 from app.db import init_db
 from app.routers import auth, schools, teachers, students, parents, tasks, ai, classrooms
+# LVO routers
+from app.routers import skills, learning_paths, verifications, credentials
 
 
 @asynccontextmanager
@@ -47,6 +49,12 @@ app.include_router(parents.router, prefix=settings.API_V1_PREFIX)
 app.include_router(tasks.router, prefix=settings.API_V1_PREFIX)
 app.include_router(classrooms.router, prefix=settings.API_V1_PREFIX)
 app.include_router(ai.router, prefix=settings.API_V1_PREFIX)
+
+# LVO routers
+app.include_router(skills.router, prefix=settings.API_V1_PREFIX)
+app.include_router(learning_paths.router, prefix=settings.API_V1_PREFIX)
+app.include_router(verifications.router, prefix=settings.API_V1_PREFIX)
+app.include_router(credentials.router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/")

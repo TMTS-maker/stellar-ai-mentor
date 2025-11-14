@@ -10,6 +10,12 @@ from app.models.task import Task, StudentTaskProgress
 from app.models.gamification import XPEvent, Badge, StudentBadge
 from app.models.conversation import ConversationSession, ConversationMessage
 
+# LVO models
+from app.models.skill import Skill, SkillScore
+from app.models.learning_path import LearningPath, LearningModule, StudentLearningPath, StudentModule
+from app.models.verification import Verification
+from app.models.credential import Credential, OnChainCredential
+
 __all__ = [
     "User",
     "School",
@@ -28,4 +34,14 @@ __all__ = [
     "StudentBadge",
     "ConversationSession",
     "ConversationMessage",
+    # LVO models
+    "Skill",
+    "SkillScore",
+    "LearningPath",
+    "LearningModule",
+    "StudentLearningPath",
+    "StudentModule",
+    "Verification",
+    "Credential",
+    "OnChainCredential",
 ]

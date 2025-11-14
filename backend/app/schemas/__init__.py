@@ -18,6 +18,30 @@ from app.schemas.conversation import (
     TextConversationRequest, VoiceConversationRequest
 )
 
+# LVO schemas
+from app.schemas.skill import (
+    SkillCreate, SkillUpdate, SkillResponse,
+    SkillScoreCreate, SkillScoreUpdate, SkillScoreResponse, SkillScoreWithSkill,
+    StudentSkillsProfile
+)
+from app.schemas.learning_path import (
+    LearningPathCreate, LearningPathUpdate, LearningPathResponse, LearningPathWithModules,
+    LearningModuleCreate, LearningModuleUpdate, LearningModuleResponse,
+    StudentLearningPathResponse, StudentLearningPathWithDetails,
+    StudentModuleResponse, StudentModuleWithDetails,
+    NextTaskRecommendation
+)
+from app.schemas.verification import (
+    VerificationCreate, VerificationUpdate, VerificationResponse, VerificationWithDetails,
+    VerificationRequest, SkillVerificationSummary, StudentVerificationProfile
+)
+from app.schemas.credential import (
+    CredentialCreate, CredentialUpdate, CredentialResponse, CredentialWithBlockchain, CredentialWithDetails,
+    MintCredentialRequest, MintCredentialResponse,
+    StudentCredentialsPortfolio, ShareableCredential,
+    OnChainCredentialResponse
+)
+
 __all__ = [
     "UserCreate", "UserResponse", "UserLogin", "Token", "TokenPayload",
     "SchoolCreate", "SchoolResponse",
@@ -31,4 +55,19 @@ __all__ = [
     "ConversationSessionCreate", "ConversationSessionResponse",
     "ConversationMessageCreate", "ConversationMessageResponse",
     "TextConversationRequest", "VoiceConversationRequest",
+    # LVO schemas
+    "SkillCreate", "SkillUpdate", "SkillResponse",
+    "SkillScoreCreate", "SkillScoreUpdate", "SkillScoreResponse", "SkillScoreWithSkill",
+    "StudentSkillsProfile",
+    "LearningPathCreate", "LearningPathUpdate", "LearningPathResponse", "LearningPathWithModules",
+    "LearningModuleCreate", "LearningModuleUpdate", "LearningModuleResponse",
+    "StudentLearningPathResponse", "StudentLearningPathWithDetails",
+    "StudentModuleResponse", "StudentModuleWithDetails",
+    "NextTaskRecommendation",
+    "VerificationCreate", "VerificationUpdate", "VerificationResponse", "VerificationWithDetails",
+    "VerificationRequest", "SkillVerificationSummary", "StudentVerificationProfile",
+    "CredentialCreate", "CredentialUpdate", "CredentialResponse", "CredentialWithBlockchain", "CredentialWithDetails",
+    "MintCredentialRequest", "MintCredentialResponse",
+    "StudentCredentialsPortfolio", "ShareableCredential",
+    "OnChainCredentialResponse",
 ]

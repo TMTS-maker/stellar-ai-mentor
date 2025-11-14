@@ -25,5 +25,12 @@ class Student(Base):
     conversation_sessions = relationship("ConversationSession", back_populates="student")
     parent_links = relationship("ParentStudent", back_populates="student")
 
+    # LVO relationships
+    skill_scores = relationship("SkillScore", back_populates="student", cascade="all, delete-orphan")
+    learning_paths = relationship("StudentLearningPath", back_populates="student", cascade="all, delete-orphan")
+    modules = relationship("StudentModule", back_populates="student", cascade="all, delete-orphan")
+    verifications = relationship("Verification", back_populates="student", cascade="all, delete-orphan")
+    credentials = relationship("Credential", back_populates="student", cascade="all, delete-orphan")
+
     def __repr__(self):
         return f"<Student(id={self.id}, user_id={self.user_id}, grade={self.grade_level})>"
