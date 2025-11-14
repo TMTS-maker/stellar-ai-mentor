@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
+import { apiClient } from '@/lib/api';
 
-// Mock data for development
+// Mock data as fallback if API fails
 const mockRings = {
   engagement: {
     current_value: 18,
@@ -100,27 +101,46 @@ export const useGamification = (userId: string) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Simulate API fetch
+  // Fetch all gamification data from the backend
   const fetchAll = useCallback(async () => {
+    if (!userId) {
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     try {
-      // In production, replace with actual API calls:
-      // const ringsRes = await fetch(`/api/v1/rings/progress?user_id=${userId}`);
-      // const plantRes = await fetch(`/api/v1/plant?user_id=${userId}`);
-      // etc.
-      
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
+      // Fetch all gamification data in parallel
+      const [
+        ringsData,
+        plantData,
+        xpData,
+        achievementsData,
+        streaksData
+      ] = await Promise.all([
+        apiClient.getStudentRings().catch(() => mockRings),
+        apiClient.getStudentPlant().catch(() => mockPlant),
+        apiClient.getStudentXP().catch(() => mockXP),
+        apiClient.getStudentBadges().catch(() => mockAchievements),
+        apiClient.getStudentStreaks().catch(() => mockStreaks)
+      ]);
+
+      setRings(ringsData);
+      setPlant(plantData);
+      setXp(xpData);
+      setAchievements(achievementsData);
+      setStreaks(streaksData);
+      setError(null);
+    } catch (err) {
+      setError('Failed to fetch gamification data');
+      console.error('Gamification fetch error:', err);
+
+      // Use mock data as fallback
       setRings(mockRings);
       setPlant(mockPlant);
       setXp(mockXP);
       setAchievements(mockAchievements);
       setStreaks(mockStreaks);
-      setError(null);
-    } catch (err) {
-      setError('Failed to fetch gamification data');
-      console.error(err);
     } finally {
       setLoading(false);
     }
