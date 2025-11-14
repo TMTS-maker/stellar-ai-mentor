@@ -8,6 +8,8 @@ from app.db import init_db
 from app.routers import auth, schools, teachers, students, parents, tasks, ai, classrooms
 # LVO routers
 from app.routers import skills, learning_paths, verifications, credentials
+# Curriculum router
+from app.routers import curriculum
 
 
 @asynccontextmanager
@@ -55,6 +57,9 @@ app.include_router(skills.router, prefix=settings.API_V1_PREFIX)
 app.include_router(learning_paths.router, prefix=settings.API_V1_PREFIX)
 app.include_router(verifications.router, prefix=settings.API_V1_PREFIX)
 app.include_router(credentials.router, prefix=settings.API_V1_PREFIX)
+
+# Curriculum router
+app.include_router(curriculum.router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/")

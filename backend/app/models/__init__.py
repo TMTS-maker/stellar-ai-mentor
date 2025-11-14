@@ -16,6 +16,9 @@ from app.models.learning_path import LearningPath, LearningModule, StudentLearni
 from app.models.verification import Verification
 from app.models.credential import Credential, OnChainCredential
 
+# Curriculum models
+from app.models.curriculum import LearningResource
+
 __all__ = [
     "User",
     "School",
@@ -44,4 +47,6 @@ __all__ = [
     "Verification",
     "Credential",
     "OnChainCredential",
+    # Curriculum models
+    "LearningResource",
 ]
