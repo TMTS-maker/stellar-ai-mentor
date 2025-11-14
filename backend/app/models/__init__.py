@@ -11,13 +11,13 @@ from app.models.gamification import XPEvent, Badge, StudentBadge
 from app.models.conversation import ConversationSession, ConversationMessage
 
 # LVO models
-from app.models.skill import Skill, SkillScore
-from app.models.learning_path import LearningPath, LearningModule, StudentLearningPath, StudentModule
-from app.models.verification import Verification
-from app.models.credential import Credential, OnChainCredential
+from app.models.skill import Skill, SkillScore, SkillCategory
+from app.models.learning_path import LearningPath, LearningModule, StudentLearningPath, StudentModule, PathStatus, ModuleStatus
+from app.models.verification import Verification, VerificationSource, VerificationStatus
+from app.models.credential import Credential, OnChainCredential, CredentialType, CredentialStatus
 
 # Curriculum models
-from app.models.curriculum import LearningResource
+from app.models.curriculum import LearningResource, ResourceType, SourceType
 
 __all__ = [
     "User",
@@ -40,13 +40,22 @@ __all__ = [
     # LVO models
     "Skill",
     "SkillScore",
+    "SkillCategory",
     "LearningPath",
     "LearningModule",
     "StudentLearningPath",
     "StudentModule",
+    "PathStatus",
+    "ModuleStatus",
     "Verification",
+    "VerificationSource",
+    "VerificationStatus",
     "Credential",
     "OnChainCredential",
+    "CredentialType",
+    "CredentialStatus",
     # Curriculum models
     "LearningResource",
+    "ResourceType",
+    "SourceType",
 ]

@@ -10,6 +10,8 @@ from app.routers import auth, schools, teachers, students, parents, tasks, ai, c
 from app.routers import skills, learning_paths, verifications, credentials
 # Curriculum router
 from app.routers import curriculum
+# Admin router
+from app.routers import admin
 
 
 @asynccontextmanager
@@ -60,6 +62,9 @@ app.include_router(credentials.router, prefix=settings.API_V1_PREFIX)
 
 # Curriculum router
 app.include_router(curriculum.router, prefix=settings.API_V1_PREFIX)
+
+# Admin router
+app.include_router(admin.router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/")
