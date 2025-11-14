@@ -343,6 +343,194 @@ class ApiClient {
       body: JSON.stringify({ students }),
     });
   }
+
+  // Admin Endpoints
+  async getAdminStats(): Promise<AdminStatsResponse> {
+    return this.request('/admin/stats');
+  }
+
+  async getAdminStudents(params?: { limit?: number; offset?: number }): Promise<StudentListItem[]> {
+    const query = params ? `?${new URLSearchParams(params as any).toString()}` : '';
+    return this.request(`/admin/students${query}`);
+  }
+
+  async getAdminStudentLVOProfile(studentId: string): Promise<StudentLVOProfile> {
+    return this.request(`/admin/students/${studentId}/lvo-profile`);
+  }
+
+  async getAdminResources(params?: { limit?: number; offset?: number; subject?: string; resource_type?: string }): Promise<ResourceManagementResponse[]> {
+    const query = params ? `?${new URLSearchParams(params as any).toString()}` : '';
+    return this.request(`/admin/resources${query}`);
+  }
+
+  async deleteAdminResource(resourceId: string): Promise<{ message: string }> {
+    return this.request(`/admin/resources/${resourceId}`, {
+      method: 'DELETE',
+    });
+  }
+
+  async getAdminSkills(params?: { limit?: number; offset?: number; category?: string }): Promise<SkillResponse[]> {
+    const query = params ? `?${new URLSearchParams(params as any).toString()}` : '';
+    return this.request(`/admin/skills${query}`);
+  }
+
+  async createAdminSkill(skillData: SkillCreate): Promise<SkillResponse> {
+    return this.request('/admin/skills', {
+      method: 'POST',
+      body: JSON.stringify(skillData),
+    });
+  }
+
+  async getAdminLearningPaths(params?: { limit?: number }): Promise<LearningPathResponse[]> {
+    const query = params ? `?${new URLSearchParams(params as any).toString()}` : '';
+    return this.request(`/admin/learning-paths${query}`);
+  }
+}
+
+// Admin Types
+export interface AdminStatsResponse {
+  total_students: number;
+  total_teachers: number;
+  total_classrooms: number;
+  total_skills: number;
+  total_learning_paths: number;
+  total_resources: number;
+  active_students_last_week: number;
+  total_credentials_issued: number;
+  total_xp_earned: number;
+}
+
+export interface StudentListItem {
+  student_id: string;
+  name: string;
+  email: string;
+  grade_level: number;
+  total_xp: number;
+  current_level: number;
+  weak_skills_count: number;
+  credentials_count: number;
+  last_active?: string | null;
+}
+
+export interface StudentLVOProfile {
+  student_id: string;
+  student_name: string;
+  email: string;
+  grade_level: number;
+  total_xp: number;
+  current_level: number;
+  skill_scores: Array<{
+    skill_id: string;
+    skill_name: string;
+    score: number;
+    confidence: number;
+    assessment_count: number;
+  }>;
+  weak_skills: Array<{
+    skill_id: string;
+    skill_name: string;
+    score: number;
+    confidence: number;
+    assessment_count: number;
+  }>;
+  strong_skills: Array<{
+    skill_id: string;
+    skill_name: string;
+    score: number;
+    confidence: number;
+    assessment_count: number;
+  }>;
+  learning_paths: Array<{
+    path_id: string;
+    path_name: string;
+    status: string;
+    progress_percentage: number;
+  }>;
+  active_modules: Array<{
+    module_id: string;
+    module_name: string;
+    status: string;
+    score: number | null;
+    tasks_completed: number;
+    tasks_total: number;
+  }>;
+  verifications_count: number;
+  recent_verifications: Array<{
+    verification_id: string;
+    skill_name: string;
+    status: string;
+    score: number | null;
+    verified_at: string | null;
+  }>;
+  credentials_count: number;
+  recent_credentials: Array<{
+    credential_id: string;
+    title: string;
+    credential_type: string;
+    status: string;
+    issued_at: string | null;
+  }>;
+  badges_earned: Array<{
+    badge_id: string;
+    badge_name: string;
+    earned_at: string;
+  }>;
+  recommended_resources: Array<{
+    resource_id: string;
+    title: string;
+    resource_type: string;
+    estimated_minutes: number | null;
+  }>;
+}
+
+export interface ResourceManagementResponse {
+  id: string;
+  title: string;
+  resource_type: string;
+  source_type: string;
+  subject: string | null;
+  grade_min: number | null;
+  grade_max: number | null;
+  quality_score: number | null;
+  view_count: number;
+  completion_count: number;
+  is_active: boolean;
+  skills_count: number;
+  created_at: string;
+}
+
+export interface SkillResponse {
+  id: string;
+  name: string;
+  description: string | null;
+  category: string;
+  level: string | null;
+  age_group_min: number | null;
+  age_group_max: number | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface SkillCreate {
+  name: string;
+  description?: string;
+  category: string;
+  level?: string;
+  age_group_min?: number;
+  age_group_max?: number;
+}
+
+export interface LearningPathResponse {
+  id: string;
+  name: string;
+  description: string | null;
+  recommended_age_min: number | null;
+  recommended_age_max: number | null;
+  estimated_hours: number | null;
+  difficulty: string | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
 }
 
 // Export singleton instance
@@ -378,6 +566,14 @@ export const {
   createClassroom,
   createSubject,
   bulkImportStudents,
+  getAdminStats,
+  getAdminStudents,
+  getAdminStudentLVOProfile,
+  getAdminResources,
+  deleteAdminResource,
+  getAdminSkills,
+  createAdminSkill,
+  getAdminLearningPaths,
 } = apiClient;
 
 export default apiClient;
