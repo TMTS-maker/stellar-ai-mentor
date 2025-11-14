@@ -31,7 +31,7 @@ class ConversationMessageCreate(BaseModel):
     sender: MessageSender
     text: str
     audio_url: Optional[str] = None
-    metadata: Optional[dict] = None
+    message_metadata: Optional[dict] = None
 
 
 class ConversationMessageResponse(BaseModel):
@@ -42,7 +42,7 @@ class ConversationMessageResponse(BaseModel):
     text: str
     audio_url: Optional[str] = None
     timestamp: datetime
-    metadata: Optional[dict] = None
+    message_metadata: Optional[dict] = None
 
     class Config:
         from_attributes = True

@@ -26,7 +26,7 @@ class Task(Base):
     description = Column(Text, nullable=True)
     xp_reward = Column(Integer, default=0, nullable=False)
     scenario_type = Column(String, nullable=True)  # conversation, quiz, pronunciation, etc.
-    metadata = Column(JSON, nullable=True)  # prompt templates, avatar persona, difficulty, etc.
+    task_metadata = Column(JSON, nullable=True)  # prompt templates, avatar persona, difficulty, etc.
 
     # Relationships
     subject = relationship("Subject", back_populates="tasks")

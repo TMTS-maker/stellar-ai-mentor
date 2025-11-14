@@ -167,7 +167,7 @@ async def voice_conversation(
         session_id=session.id,
         sender=MessageSender.STUDENT,
         text=transcription,
-        metadata={"from_voice": True}
+        message_metadata={"from_voice": True}
     )
     db.add(student_message)
 
@@ -214,7 +214,7 @@ async def voice_conversation(
         sender=MessageSender.AVATAR,
         text=llm_response,
         audio_url=audio_url,
-        metadata={"avatar_video_url": avatar_video_url}
+        message_metadata={"avatar_video_url": avatar_video_url}
     )
     db.add(avatar_message)
 

@@ -18,7 +18,7 @@ class TaskCreate(TaskBase):
     """Schema for task creation"""
     subject_id: Optional[UUID] = None
     learning_path_id: Optional[UUID] = None
-    metadata: Optional[dict] = None
+    task_metadata: Optional[dict] = None
 
 
 class TaskResponse(TaskBase):
@@ -26,7 +26,7 @@ class TaskResponse(TaskBase):
     id: UUID
     subject_id: Optional[UUID] = None
     learning_path_id: Optional[UUID] = None
-    metadata: Optional[dict] = None
+    task_metadata: Optional[dict] = None
 
     class Config:
         from_attributes = True

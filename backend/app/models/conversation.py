@@ -45,7 +45,7 @@ class ConversationMessage(Base):
     text = Column(Text, nullable=False)
     audio_url = Column(String, nullable=True)
     timestamp = Column(DateTime, default=datetime.utcnow, nullable=False)
-    metadata = Column(JSON, nullable=True)  # scores, STT confidences, etc.
+    message_metadata = Column(JSON, nullable=True)  # scores, STT confidences, etc.
 
     # Relationships
     session = relationship("ConversationSession", back_populates="messages")

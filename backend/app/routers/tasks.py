@@ -28,7 +28,7 @@ async def create_task(
         learning_path_id=task_data.learning_path_id,
         xp_reward=task_data.xp_reward,
         scenario_type=task_data.scenario_type,
-        metadata=task_data.metadata
+        task_metadata=task_data.task_metadata
     )
     db.add(task)
     await db.commit()
