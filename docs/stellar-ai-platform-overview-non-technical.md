@@ -96,14 +96,14 @@ This is our revolutionary three-phase approach that transforms how students lear
 
 | Mentor | Specialty | Age | Personality | Best For |
 |--------|-----------|-----|-------------|----------|
-| 🌙 **Luna** | Reading, Language Arts | 6-9 | Warm, nurturing, story-based | Young learners, confidence-building |
-| 🧙‍♂️ **Sage** | Math, Logic | 7-12 | Wise, Socratic, pattern-focused | Problem-solving, math reasoning |
-| 🔬 **Nova** | Science, STEM | 8-14 | Curious, experimental | Scientific inquiry, critical thinking |
-| 📖 **Orion** | Writing, Creativity | 6-12 | Dramatic, inspiring | Creative expression, storytelling |
-| ⚽ **Pip** | Social Skills, Games | 6-10 | Energetic, motivating | Growth mindset, resilience |
-| 🌍 **Zara** | Social Studies, Languages | 8-14 | Worldly, respectful | Cultural awareness, languages |
-| ⏳ **Atlas** | History, Civics | 9-14 | Thoughtful, analytical | Historical thinking, analysis |
-| 🎵 **Echo** | Arts, Music | 6-14 | Expressive, creative | Artistic skills, self-expression |
+| ⭐ **Stella** | Mathematics, Algebra | 7-14 | Clear, systematic, supportive | Math reasoning, problem-solving |
+| 🔭 **Max** | Physics, Engineering | 10-14 | Enthusiastic, pragmatic, innovative | Applied science, hands-on learning |
+| 🧪 **Nova** | Chemistry, Life Sciences | 8-14 | Curious, analytical, precise | Scientific inquiry, experiments |
+| 🌱 **Darwin** | Biology, Environmental Science | 8-14 | Thoughtful, observational | Living systems, ecosystems |
+| 📚 **Lexis** | English, Reading, Writing | 6-14 | Warm, articulate, encouraging | Language arts, literacy |
+| 💻 **Neo** | Computer Science, AI, Tech | 9-14 | Tech-savvy, optimistic | Coding, digital literacy |
+| 🎨 **Luna** | Arts, Music, Drama | 6-14 | Artistic, imaginative, supportive | Creative expression, aesthetics |
+| 🌍 **Atlas** | History, Geography, Culture | 9-14 | Thoughtful, worldly, analytical | Historical thinking, civic awareness |
 
 **Why It Matters:**
 - Students **actually want** to learn with their favorite mentor
@@ -112,7 +112,7 @@ This is our revolutionary three-phase approach that transforms how students lear
 - Builds genuine connection and engagement
 
 **Real Student Experience:**
-> "I love learning fractions with Sage! He makes it feel like solving puzzles instead of boring math homework." - Maya, 4th Grade
+> "I love learning fractions with Stella! She makes it feel like solving puzzles instead of boring math homework." - Maya, 4th Grade
 
 ### 2. Personalized Learning Paths 🎯
 
@@ -133,7 +133,7 @@ Weak Skill: Multiplication (Score: 42/100)
 Recommended Path:
 1. Watch "Multiplication as Repeated Addition" video (12 min)
 2. Play "Array Builder" interactive game (15 min)
-3. Solve 10 word problems with Sage's guidance (20 min)
+3. Solve 10 word problems with Stella's guidance (20 min)
 4. Mini-quiz to verify understanding (5 min)
 5. Earn "Multiplication Master" credential ✅
 ```
@@ -194,7 +194,7 @@ Certificate of Mastery
 │  ✓ Mastered: Fractions (Score: 92)  │
 │                                      │
 │  Verified by:                        │
-│  • AI Mentor Sage                    │
+│  • AI Mentor Stella                  │
 │  • 5 practice assessments            │
 │  • Teacher Ms. Rodriguez             │
 │                                      │
@@ -291,7 +291,7 @@ Certificate of Mastery
 - **Confidence:** Multiple chances to prove understanding
 
 **Student Voice:**
-> "I used to hate fractions, but Sage made them actually fun. Now I have a certificate I can show my parents!" - Alex, 3rd Grade
+> "I used to hate fractions, but Stella made them actually fun. Now I have a certificate I can show my parents!" - Alex, 3rd Grade
 
 ### 👪 Parents
 
@@ -535,21 +535,21 @@ graph TB
 ✅ Basic content library
 ✅ Gamification engine
 
-### Q2 2025
+### Q2 2026
 - Voice conversations (speak to mentors)
 - Video avatars (see mentors)
 - Mobile apps (iOS/Android)
 - LMS integrations (Canvas, Google Classroom)
 - Real blockchain minting (Stellar, Polygon)
 
-### Q3 2025
+### Q3 2026
 - Advanced AI recommendations
 - Peer collaboration features
 - Parent dashboard improvements
 - Content marketplace launch
 - Multi-language support
 
-### Q4 2025
+### Q4 2026
 - VR/AR experiences
 - Advanced analytics for districts
 - Custom mentor creation tools

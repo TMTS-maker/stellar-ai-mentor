@@ -410,7 +410,7 @@ sequenceDiagram
 
 | Feature | Stellar AI | AI Tutors |
 |---------|-----------|-----------|
-| **Personas** | 8 distinct mentors (Luna, Sage, Nova, etc.) | Single AI voice |
+| **Personas** | 8 distinct mentors (Stella, Max, Nova, Darwin, Lexis, Neo, Luna, Atlas) | Single AI voice |
 | **LVO Architecture** | Learn → Verify → Own (blockchain credentials) | Learn only |
 | **School Integration** | Admin panel, teacher tools, parent dashboards | Student-facing only |
 | **Content Management** | Schools can add their own curriculum | Fixed content library |
