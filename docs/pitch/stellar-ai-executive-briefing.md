@@ -45,10 +45,10 @@ The result: A complete learning ecosystem that works for students (engaging, mot
 
 **Lars Sass** is uniquely positioned to build Stellar AI.
 
-- **Technical Depth:** Built AI systems, automation platforms, and large-scale ML pipelines at Amazon, Deutsche Telekom, and Omnicom. Deep hands-on technical expertise.
+- **Technical Depth:** Built AI systems, automation platforms, and large-scale ML pipelines at Amazon, Deutsche Telekom, IPG Mediabrands & Omnicom. Deep hands-on technical expertise.
 - **Educational Vision:** Not building tech for tech's sake. Genuinely passionate about reimagining how children learn and grow.
-- **Systems Architecture:** Comes from a background of designing multi-agent systems and complex ecosystems. Stellar AI's architecture demands this thinking.
-- **Execution Track Record:** Shipped complex systems affecting 100M+ users. Managed global teams. Navigated regulatory and operational complexity.
+- **Systems Architecture:** Studied mechanical engineering, built neural networks, and brings a strong background in designing multi-agent systems and complex ecosystems. This systems-level mindset is exactly what Stellar AI’s architecture requires.
+- **Execution Track Record:** Delivered large-scale digital transformation projects managing multi-million media budgets. Built systems that significantly improved operational efficiency, data workflows, and decision-making processes across global teams and stakeholders.
 - **Rare Combination:** Hard to find founders who combine technical excellence + business judgment + pedagogical knowledge + operational maturity.
 
 This is not a first-time founder playing with shiny tech. This is a systems architect with deep experience bringing a transformational vision to life.
