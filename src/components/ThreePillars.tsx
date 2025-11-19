@@ -59,7 +59,7 @@ const ThreePillars = () => {
             <span className="gradient-text">Learn. Verify. Own.</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            The three pillars of the Stellar AI revolution
+            The three pillars of the Stellecta revolution
           </p>
         </motion.div>
 

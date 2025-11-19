@@ -230,7 +230,7 @@ const AIChat = ({ agent, onClose }: AIChatProps) => {
           
           <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1">
             <Sparkles className="h-3 w-3" />
-            Powered by Stellar AI • This is a demo conversation
+            Powered by Stellecta • This is a demo conversation
           </p>
         </div>
       </motion.div>

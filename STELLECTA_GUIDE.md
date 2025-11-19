@@ -1,8 +1,8 @@
-# Stellar AI - Interactive Landing Page
+# Stellecta - Interactive Landing Page
 
 ## 🌟 Overview
 
-Stellar AI is a next-generation EdTech platform that combines AI-powered personalized learning with blockchain-verified credentials. This interactive landing page showcases 8 specialized AI mentor agents, each with unique personalities and expertise.
+Stellecta is a next-generation EdTech platform that combines AI-powered personalized learning with blockchain-verified credentials. This interactive landing page showcases 8 specialized AI mentor agents, each with unique personalities and expertise.
 
 ## ✨ Features
 
@@ -223,4 +223,4 @@ Educational demonstration project.
 
 ---
 
-Built with ❤️ by Lovable AI
+

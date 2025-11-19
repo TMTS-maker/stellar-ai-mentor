@@ -28,8 +28,8 @@ const Navigation = ({ activeSection, onSectionChange }: NavigationProps) => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => onSectionChange("home")}>
-            <img src={stellarLogo} alt="Stellar AI" className="h-10 w-auto" />
-            <span className="text-2xl font-black gradient-text">Stellar AI</span>
+            <img src={stellarLogo} alt="Stellecta" className="h-10 w-auto" />
+            <span className="text-2xl font-black gradient-text">Stellecta</span>
           </div>
 
           {/* Desktop Navigation */}

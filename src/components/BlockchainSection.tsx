@@ -49,7 +49,7 @@ const BlockchainSection = () => {
                 <span className="gradient-text">Verified Forever</span>
               </h2>
               <p className="text-xl text-muted-foreground leading-relaxed">
-                Stellar AI creates your Longitudinal Competency Trajectory (LCT) — 
+                Stellecta creates your Longitudinal Competency Trajectory (LCT) — 
                 a lifelong digital education passport secured on the blockchain.
               </p>
             </div>

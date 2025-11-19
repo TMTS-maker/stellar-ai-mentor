@@ -22,7 +22,7 @@ const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
             className="absolute top-0 left-0 w-full h-full"
             allow="autoplay"
             allowFullScreen
-            title="Stellar AI Demo Video"
+            title="Stellecta Demo Video"
           />
         </div>
       </DialogContent>

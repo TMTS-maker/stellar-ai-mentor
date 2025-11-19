@@ -62,7 +62,7 @@ const LessonCreationChoice = ({
                 <Sparkles className="h-12 w-12 text-white" />
               </div>
               <div className="text-center space-y-3">
-                <h3 className="text-2xl font-bold">Let Stellar AI Create</h3>
+                <h3 className="text-2xl font-bold">Let Stellecta Create</h3>
                 <p className="text-muted-foreground max-w-xs">
                   Answer a few questions and let our AI generate a complete, engaging lesson for you
                 </p>

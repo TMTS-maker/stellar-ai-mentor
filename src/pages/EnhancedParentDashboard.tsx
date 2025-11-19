@@ -367,7 +367,7 @@ const EnhancedParentDashboard = () => {
                   </div>
                   <div>
                     <h3 className="text-xl font-black flex items-center gap-2">
-                      Stellar AI Insights
+                      Stellecta Insights
                       <Brain className="h-5 w-5 text-primary" />
                     </h3>
                     <p className="text-sm text-muted-foreground">AI-powered summary for {selectedChild.name}</p>

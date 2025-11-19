@@ -81,7 +81,7 @@ const AILessonBuilder = ({ open, onClose, onGenerate }: AILessonBuilderProps) =>
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-primary" />
-            Stellar AI Lesson Builder
+            Stellecta Lesson Builder
           </DialogTitle>
         </DialogHeader>
 
@@ -253,7 +253,7 @@ const AILessonBuilder = ({ open, onClose, onGenerate }: AILessonBuilderProps) =>
               <div>
                 <Label className="text-lg mb-3">Review Your Lesson</Label>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Stellar AI will create a complete lesson based on your preferences
+                  Stellecta will create a complete lesson based on your preferences
                 </p>
               </div>
               <Card className="p-4 space-y-3 bg-accent/20">

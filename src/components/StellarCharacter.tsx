@@ -13,7 +13,7 @@ const StellarCharacter = () => {
       <div className="relative bg-card rounded-3xl border border-border shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden w-full max-w-lg">
         <img
           src={stellarChar}
-          alt="Stellar AI Character"
+          alt="Stellecta Character"
           className="w-full h-auto object-contain drop-shadow-2xl"
         />
         

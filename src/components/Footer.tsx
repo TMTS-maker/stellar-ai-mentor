@@ -48,8 +48,8 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <img src={stellarLogo} alt="Stellar AI" className="h-10 w-auto" />
-              <span className="text-2xl font-black gradient-text">Stellar AI</span>
+              <img src={stellarLogo} alt="Stellecta" className="h-10 w-auto" />
+              <span className="text-2xl font-black gradient-text">Stellecta</span>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed">
               Transform learning into lifelong, verifiable assets with AI-powered education 
@@ -103,7 +103,7 @@ const Footer = () => {
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-400">
-              © 2025 Stellar AI. All rights reserved.
+              © 2025 Stellecta. All rights reserved.
             </p>
             <div className="flex flex-wrap gap-6 text-sm text-gray-400">
               <a href="#" className="hover:text-white transition-colors">English</a>

@@ -35,9 +35,9 @@ const DashboardNav = ({ userName, userRole, roleGradient = "from-purple-600 to-p
               className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
               onClick={() => navigate("/")}
             >
-              <img src={stellarLogo} alt="Stellar AI" className="h-8 w-auto" />
+              <img src={stellarLogo} alt="Stellecta" className="h-8 w-auto" />
               <span className="text-xl font-black gradient-text hidden sm:inline">
-                Stellar AI
+                Stellecta
               </span>
             </div>
           </div>

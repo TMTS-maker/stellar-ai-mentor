@@ -82,7 +82,7 @@ const Login = () => {
       >
         {/* Logo */}
         <div className="text-center mb-8">
-          <img src={stellarLogo} alt="Stellar AI" className="h-16 mx-auto mb-4" />
+          <img src={stellarLogo} alt="Stellecta" className="h-16 mx-auto mb-4" />
           <h1 className="text-4xl font-black gradient-text mb-2">Welcome Back!</h1>
           <p className="text-muted-foreground">Choose your role and sign in</p>
         </div>

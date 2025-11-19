@@ -61,7 +61,7 @@ const SchoolsSection = () => {
   }, {
     icon: CheckCircle,
     title: "Proven Results",
-    description: "Schools using Stellar AI report 35% improvement in student engagement and 28% increase in learning outcomes."
+    description: "Schools using Stellecta report 35% improvement in student engagement and 28% increase in learning outcomes."
   }];
   return <div className="min-h-screen bg-gradient-to-b from-background via-primary/5 to-background py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -143,7 +143,7 @@ const SchoolsSection = () => {
       }} className="text-center bg-card rounded-3xl p-12 shadow-xl border border-border">
           <h2 className="text-4xl font-black mb-4">Ready to Transform Your School?</h2>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Schedule a demo and see how Stellar AI can help your students succeed. 
+            Schedule a demo and see how Stellecta can help your students succeed. 
             Our team will work with you to create a customized implementation plan.
           </p>
           <Button size="lg" className="gradient-stellar text-white font-bold text-lg px-10 py-7" onClick={() => setIsDialogOpen(true)}>
