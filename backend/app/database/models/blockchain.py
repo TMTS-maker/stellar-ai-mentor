@@ -36,7 +36,7 @@ class HPEMCredential(Base):
     verification_timestamp = Column(TIMESTAMP, nullable=True)
 
     # Metadata
-    metadata = Column(JSON, nullable=True)
+    extra_metadata = Column(JSON, nullable=True)
     credential_data = Column(JSON, nullable=True)
 
     # Timestamps

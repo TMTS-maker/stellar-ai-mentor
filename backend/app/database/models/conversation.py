@@ -58,7 +58,7 @@ class Message(Base):
     xp_earned = Column(Integer, default=0)
 
     # Additional metadata
-    metadata = Column(JSON, nullable=True)
+    extra_metadata = Column(JSON, nullable=True)
 
     # Timestamps
     timestamp = Column(TIMESTAMP, default=datetime.utcnow, nullable=False)
