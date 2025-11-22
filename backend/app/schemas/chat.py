@@ -55,6 +55,8 @@ class SendMessageResponse(BaseModel):
     current_level: int
     llm_provider: Optional[str] = None
     tokens_used: Optional[int] = None
+    streak: Optional[dict] = None  # Streak information
+    new_badges: Optional[list] = None  # Newly awarded badges
 
 
 class SessionResponse(BaseModel):

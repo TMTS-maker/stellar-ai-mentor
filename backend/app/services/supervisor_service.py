@@ -20,6 +20,7 @@ from app.database.models.gamification import StudentXPLog
 from app.agents.mentors import MENTOR_REGISTRY, get_mentor
 from app.core.config import settings
 from app.services.curriculum_service import CurriculumService
+from app.services.gamification_service import GamificationService
 
 
 class SupervisorService:
@@ -127,10 +128,19 @@ class SupervisorService:
         # 9. Award XP to student
         xp_earned = await self._award_xp(student, settings.XP_PER_MESSAGE, session.id)
 
-        # 10. Commit all changes
+        # 10. Update gamification (streaks and badges)
+        gamification_service = GamificationService(self.db)
+
+        # Update streak
+        streak_info = await gamification_service.update_streak(str(student.id))
+
+        # Check and award new badges
+        new_badges = await gamification_service.check_and_award_badges(str(student.id))
+
+        # 11. Commit all changes
         self.db.commit()
 
-        # 11. Return response
+        # 12. Return response with gamification data
         return {
             'text': response['text'],
             'mentor_id': mentor_id,
@@ -141,7 +151,9 @@ class SupervisorService:
             'total_xp': student.total_xp,
             'current_level': student.current_level,
             'llm_provider': response.get('llm_provider'),
-            'tokens_used': response.get('tokens_used')
+            'tokens_used': response.get('tokens_used'),
+            'streak': streak_info,
+            'new_badges': new_badges,
         }
 
     def detect_subject(self, message: str) -> str:

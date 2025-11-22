@@ -13,6 +13,8 @@ import { InputBar } from './InputBar';
 import { MentorSelector } from './MentorSelector';
 import { SessionHistory } from './SessionHistory';
 import { XPNotification } from './XPNotification';
+import { BadgeNotification } from '@/components/gamification/BadgeNotification';
+import { StreakCounter } from '@/components/gamification/StreakCounter';
 import {
   Plus,
   History,
@@ -101,6 +103,7 @@ export const ChatInterface = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [showMentorSelector, setShowMentorSelector] = useState(false);
   const [previousLevel, setPreviousLevel] = useState(currentLevel);
+  const [newBadges, setNewBadges] = useState<any[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom on new messages
@@ -123,7 +126,12 @@ export const ChatInterface = () => {
       return;
     }
 
-    await sendMessage(message);
+    const response = await sendMessage(message);
+
+    // Check for newly earned badges
+    if (response && response.new_badges && response.new_badges.length > 0) {
+      setNewBadges(response.new_badges);
+    }
   };
 
   const handleSelectMentor = (mentorId: string) => {
@@ -153,6 +161,11 @@ export const ChatInterface = () => {
         currentLevel={currentLevel}
         previousLevel={previousLevel}
       />
+
+      {/* Badge Notifications */}
+      {newBadges.length > 0 && (
+        <BadgeNotification badges={newBadges} onClose={() => setNewBadges([])} />
+      )}
 
       {/* Sidebar - Session History */}
       <AnimatePresence>
@@ -216,6 +229,11 @@ export const ChatInterface = () => {
 
             {/* Right: Actions & Stats */}
             <div className="flex items-center gap-2">
+              {/* Streak Counter (Compact) */}
+              <div className="hidden sm:block">
+                <StreakCounter compact />
+              </div>
+
               {/* XP Display */}
               <div className="hidden sm:flex items-center gap-2 px-3 py-2 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-full">
                 <Award className="h-4 w-4" />
