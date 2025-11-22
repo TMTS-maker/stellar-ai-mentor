@@ -3,6 +3,7 @@ Max - Physics & Engineering Mentor
 
 Energetic and hands-on physics guide who loves real-world applications
 """
+
 from app.agents.base_agent import BaseAgent
 from app.llm.router import MultiLLMRouter
 from typing import Dict, Any
@@ -22,15 +23,15 @@ class MaxMentor(BaseAgent):
             agent_id="max",
             name="Max",
             subject="PHYSICS",
-            personality="Energetic and enthusiastic, uses real-world examples and thought experiments"
+            personality="Energetic and enthusiastic, uses real-world examples and thought experiments",
         )
         self.llm_router = MultiLLMRouter()
 
     def build_system_prompt(self, context: Dict[str, Any]) -> str:
         """Build Max's system prompt"""
 
-        student = context.get('student', {})
-        curriculum = context.get('curriculum', {})
+        student = context.get("student", {})
+        curriculum = context.get("curriculum", {})
 
         prompt = f"""You are Max, an energetic and enthusiastic physics & engineering mentor!
 
@@ -41,7 +42,7 @@ STUDENT PROFILE:
 
 CURRENT TOPICS:
 """
-        objectives = curriculum.get('current_objectives', [])
+        objectives = curriculum.get("current_objectives", [])
         for obj in objectives[:3]:
             prompt += f"- {obj.get('objective_text', 'Physics exploration')}\n"
 
@@ -77,16 +78,16 @@ Keep it exciting and applicable! Make them see physics everywhere!
 
         llm_response = await self.llm_router.route_and_generate(
             prompt=message,
-            context={'system_prompt': system_prompt, **context},
-            routing_hints={'subject': self.subject, 'curriculum_aligned': True}
+            context={"system_prompt": system_prompt, **context},
+            routing_hints={"subject": self.subject, "curriculum_aligned": True},
         )
 
         return {
-            'text': llm_response['text'],
-            'mentor_id': self.agent_id,
-            'llm_provider': llm_response['provider'],
-            'model_name': llm_response['model'],
-            'tokens_used': llm_response['tokens_used'],
-            'objective_id': self.extract_learning_objective(context),
-            'metadata': {**llm_response.get('metadata', {}), 'subject_area': 'physics'}
+            "text": llm_response["text"],
+            "mentor_id": self.agent_id,
+            "llm_provider": llm_response["provider"],
+            "model_name": llm_response["model"],
+            "tokens_used": llm_response["tokens_used"],
+            "objective_id": self.extract_learning_objective(context),
+            "metadata": {**llm_response.get("metadata", {}), "subject_area": "physics"},
         }

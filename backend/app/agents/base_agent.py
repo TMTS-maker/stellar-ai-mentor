@@ -3,6 +3,7 @@ Base Agent Abstract Class
 
 Defines the interface that all mentor agents must implement
 """
+
 from abc import ABC, abstractmethod
 from typing import Dict, Any, Optional, List
 from datetime import datetime
@@ -33,11 +34,7 @@ class BaseAgent(ABC):
         self.created_at = datetime.utcnow()
 
     @abstractmethod
-    async def generate_response(
-        self,
-        message: str,
-        context: Dict[str, Any]
-    ) -> Dict[str, Any]:
+    async def generate_response(self, message: str, context: Dict[str, Any]) -> Dict[str, Any]:
         """
         Generate response to student message
 
@@ -90,7 +87,7 @@ class BaseAgent(ABC):
             "name": self.name,
             "subject": self.subject,
             "personality": self.personality,
-            "created_at": self.created_at.isoformat()
+            "created_at": self.created_at.isoformat(),
         }
 
     def validate_context(self, context: Dict[str, Any]) -> bool:
@@ -103,7 +100,7 @@ class BaseAgent(ABC):
         Returns:
             True if valid, raises ValueError if not
         """
-        required_fields = ['student', 'curriculum']
+        required_fields = ["student", "curriculum"]
 
         for field in required_fields:
             if field not in context:
@@ -121,10 +118,10 @@ class BaseAgent(ABC):
         Returns:
             Objective ID or None
         """
-        curriculum = context.get('curriculum', {})
-        objectives = curriculum.get('current_objectives', [])
+        curriculum = context.get("curriculum", {})
+        objectives = curriculum.get("current_objectives", [])
 
         if objectives and len(objectives) > 0:
-            return objectives[0].get('id')
+            return objectives[0].get("id")
 
         return None

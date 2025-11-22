@@ -3,6 +3,7 @@ Indian CBSE Curriculum Provider
 
 Implements curriculum objectives for CBSE (Central Board of Secondary Education)
 """
+
 from typing import List, Optional
 from app.curriculum.base_provider import BaseCurriculumProvider, CurriculumObjectiveData
 
@@ -19,7 +20,7 @@ class IndianCBSEProvider(BaseCurriculumProvider):
             curriculum_type="INDIAN_CBSE",
             curriculum_name="CBSE (Central Board of Secondary Education)",
             country="India",
-            board="CBSE"
+            board="CBSE",
         )
         self._initialize_objectives()
 
@@ -50,9 +51,9 @@ class IndianCBSEProvider(BaseCurriculumProvider):
                 example_questions=[
                     "Solve: x² + 5x + 6 = 0",
                     "Find roots of: 2x² - 7x + 3 = 0 using quadratic formula",
-                    "Complete the square: x² + 6x + 5 = 0"
+                    "Complete the square: x² + 6x + 5 = 0",
                 ],
-                prerequisite_codes=["CBSE_MATH_9_ALG_003", "CBSE_MATH_9_ALG_005"]
+                prerequisite_codes=["CBSE_MATH_9_ALG_003", "CBSE_MATH_9_ALG_005"],
             ),
             "CBSE_MATH_10_GEO_001": CurriculumObjectiveData(
                 objective_code="CBSE_MATH_10_GEO_001",
@@ -66,9 +67,9 @@ class IndianCBSEProvider(BaseCurriculumProvider):
                 description="Study properties of circles, tangents, chords, and their theorems.",
                 example_questions=[
                     "Prove that the tangent at any point of a circle is perpendicular to the radius",
-                    "Find the length of tangent from an external point"
+                    "Find the length of tangent from an external point",
                 ],
-                prerequisite_codes=["CBSE_MATH_9_GEO_002"]
+                prerequisite_codes=["CBSE_MATH_9_GEO_002"],
             ),
             "CBSE_MATH_10_TRIG_001": CurriculumObjectiveData(
                 objective_code="CBSE_MATH_10_TRIG_001",
@@ -82,9 +83,9 @@ class IndianCBSEProvider(BaseCurriculumProvider):
                 description="Learn sin, cos, tan, cot, sec, cosec and their relationships.",
                 example_questions=[
                     "Find sin(30°), cos(45°), tan(60°)",
-                    "If sin A = 3/5, find cos A and tan A"
+                    "If sin A = 3/5, find cos A and tan A",
                 ],
-                prerequisite_codes=["CBSE_MATH_9_GEO_001"]
+                prerequisite_codes=["CBSE_MATH_9_GEO_001"],
             ),
             "CBSE_MATH_10_STAT_001": CurriculumObjectiveData(
                 objective_code="CBSE_MATH_10_STAT_001",
@@ -98,9 +99,9 @@ class IndianCBSEProvider(BaseCurriculumProvider):
                 description="Learn to calculate and interpret mean, median, and mode for different data sets.",
                 example_questions=[
                     "Find the mean of the frequency distribution",
-                    "Calculate median for grouped data"
+                    "Calculate median for grouped data",
                 ],
-                prerequisite_codes=["CBSE_MATH_9_STAT_001"]
+                prerequisite_codes=["CBSE_MATH_9_STAT_001"],
             ),
         }
 
@@ -117,11 +118,8 @@ class IndianCBSEProvider(BaseCurriculumProvider):
                 difficulty_level=4,
                 blooms_level="Understand",
                 description="Study reflection of light from plane and spherical mirrors, and refraction through different media.",
-                example_questions=[
-                    "State the laws of reflection",
-                    "Derive the mirror formula"
-                ],
-                prerequisite_codes=["CBSE_PHY_9_LIGHT_001"]
+                example_questions=["State the laws of reflection", "Derive the mirror formula"],
+                prerequisite_codes=["CBSE_PHY_9_LIGHT_001"],
             ),
             "CBSE_PHY_10_ELEC_001": CurriculumObjectiveData(
                 objective_code="CBSE_PHY_10_ELEC_001",
@@ -135,9 +133,9 @@ class IndianCBSEProvider(BaseCurriculumProvider):
                 description="Learn electric current, potential difference, resistance, Ohm's law, and circuit analysis.",
                 example_questions=[
                     "Calculate resistance using Ohm's law",
-                    "Find equivalent resistance in series and parallel"
+                    "Find equivalent resistance in series and parallel",
                 ],
-                prerequisite_codes=["CBSE_PHY_9_ELEC_001"]
+                prerequisite_codes=["CBSE_PHY_9_ELEC_001"],
             ),
         }
 
@@ -156,20 +154,19 @@ class IndianCBSEProvider(BaseCurriculumProvider):
                 description="Study chemical properties of acids, bases, pH scale, and salt formation.",
                 example_questions=[
                     "What happens when acid reacts with base?",
-                    "Explain pH scale and its importance"
+                    "Explain pH scale and its importance",
                 ],
-                prerequisite_codes=["CBSE_CHEM_9_MATTER_001"]
+                prerequisite_codes=["CBSE_CHEM_9_MATTER_001"],
             ),
         }
 
     def get_objectives_for_grade_subject(
-        self,
-        grade_level: int,
-        subject: str
+        self, grade_level: int, subject: str
     ) -> List[CurriculumObjectiveData]:
         """Get all objectives for grade and subject"""
         return [
-            obj for obj in self.objectives.values()
+            obj
+            for obj in self.objectives.values()
             if obj.grade_level == grade_level and obj.subject == subject
         ]
 
@@ -200,10 +197,7 @@ class IndianCBSEProvider(BaseCurriculumProvider):
         return next_objs
 
     def search_objectives(
-        self,
-        query: str,
-        subject: Optional[str] = None,
-        grade_level: Optional[int] = None
+        self, query: str, subject: Optional[str] = None, grade_level: Optional[int] = None
     ) -> List[CurriculumObjectiveData]:
         """Search objectives by query"""
         query_lower = query.lower()
@@ -217,10 +211,12 @@ class IndianCBSEProvider(BaseCurriculumProvider):
                 continue
 
             # Search in text fields
-            if (query_lower in obj.objective_text.lower() or
-                query_lower in obj.topic.lower() or
-                (obj.subtopic and query_lower in obj.subtopic.lower()) or
-                (obj.description and query_lower in obj.description.lower())):
+            if (
+                query_lower in obj.objective_text.lower()
+                or query_lower in obj.topic.lower()
+                or (obj.subtopic and query_lower in obj.subtopic.lower())
+                or (obj.description and query_lower in obj.description.lower())
+            ):
                 results.append(obj)
 
         return results

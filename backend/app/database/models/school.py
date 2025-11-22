@@ -1,6 +1,7 @@
 """
 School and Classroom Models
 """
+
 from sqlalchemy import Column, String, Integer, TIMESTAMP, ForeignKey, Text, ARRAY
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
@@ -11,6 +12,7 @@ from datetime import datetime
 
 class School(Base):
     """School/Institution model"""
+
     __tablename__ = "schools"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -41,6 +43,7 @@ class School(Base):
 
 class Classroom(Base):
     """Classroom model for organizing students"""
+
     __tablename__ = "classrooms"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)

@@ -3,6 +3,7 @@ FastAPI Dependencies
 
 Reusable dependencies for authentication, database access, etc.
 """
+
 from typing import Generator, Optional
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -16,8 +17,7 @@ security = HTTPBearer()
 
 
 async def get_current_user(
-    credentials: HTTPAuthorizationCredentials = Depends(security),
-    db: Session = Depends(get_db)
+    credentials: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_db)
 ) -> User:
     """
     Get current authenticated user from JWT token
@@ -62,8 +62,7 @@ async def get_current_user(
 
 
 async def get_current_student(
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    current_user: User = Depends(get_current_user), db: Session = Depends(get_db)
 ) -> Student:
     """
     Get current user as a Student
@@ -79,24 +78,19 @@ async def get_current_student(
         HTTPException: 403 if user is not a student
     """
     if current_user.user_type != "student":
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="User is not a student"
-        )
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="User is not a student")
 
     student = db.query(Student).filter(Student.id == current_user.id).first()
     if not student:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Student profile not found"
+            status_code=status.HTTP_404_NOT_FOUND, detail="Student profile not found"
         )
 
     return student
 
 
 async def get_current_teacher(
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    current_user: User = Depends(get_current_user), db: Session = Depends(get_db)
 ) -> Teacher:
     """
     Get current user as a Teacher
@@ -112,24 +106,18 @@ async def get_current_teacher(
         HTTPException: 403 if user is not a teacher
     """
     if current_user.user_type != "teacher":
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="User is not a teacher"
-        )
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="User is not a teacher")
 
     teacher = db.query(Teacher).filter(Teacher.id == current_user.id).first()
     if not teacher:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Teacher profile not found"
+            status_code=status.HTTP_404_NOT_FOUND, detail="Teacher profile not found"
         )
 
     return teacher
 
 
-async def get_current_admin(
-    current_user: User = Depends(get_current_user)
-) -> User:
+async def get_current_admin(current_user: User = Depends(get_current_user)) -> User:
     """
     Get current user as an Admin
 
@@ -143,10 +131,7 @@ async def get_current_admin(
         HTTPException: 403 if user is not an admin
     """
     if current_user.user_type != "admin":
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="User is not an admin"
-        )
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="User is not an admin")
 
     return current_user
 
@@ -154,7 +139,7 @@ async def get_current_admin(
 # Optional authentication (allows unauthenticated requests)
 async def get_current_user_optional(
     credentials: Optional[HTTPAuthorizationCredentials] = Depends(HTTPBearer(auto_error=False)),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ) -> Optional[User]:
     """
     Get current user if authenticated, otherwise None

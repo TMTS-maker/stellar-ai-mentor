@@ -3,6 +3,7 @@ UK National Curriculum Provider
 
 Implements curriculum objectives for UK National Curriculum and IGCSE
 """
+
 from typing import List, Optional
 from app.curriculum.base_provider import BaseCurriculumProvider, CurriculumObjectiveData
 
@@ -26,7 +27,7 @@ class UKNationalProvider(BaseCurriculumProvider):
             curriculum_type=curriculum_type,
             curriculum_name=curriculum_name,
             country="United Kingdom",
-            board="Edexcel" if variant == "IGCSE" else None
+            board="Edexcel" if variant == "IGCSE" else None,
         )
         self.variant = variant
         self._initialize_objectives()
@@ -56,9 +57,9 @@ class UKNationalProvider(BaseCurriculumProvider):
                 description="Convert between ordinary numbers and standard form, and perform calculations.",
                 example_questions=[
                     "Write 0.000045 in standard form",
-                    "Calculate (3 × 10⁵) × (2 × 10⁻³)"
+                    "Calculate (3 × 10⁵) × (2 × 10⁻³)",
                 ],
-                prerequisite_codes=[f"{prefix}_MATH_9_NUM_002"]
+                prerequisite_codes=[f"{prefix}_MATH_9_NUM_002"],
             ),
             f"{prefix}_MATH_10_ALG_001": CurriculumObjectiveData(
                 objective_code=f"{prefix}_MATH_10_ALG_001",
@@ -72,9 +73,9 @@ class UKNationalProvider(BaseCurriculumProvider):
                 description="Solve pairs of simultaneous linear equations using elimination, substitution, and graphical methods.",
                 example_questions=[
                     "Solve: 2x + 3y = 12 and x - y = 1",
-                    "Find the point of intersection graphically"
+                    "Find the point of intersection graphically",
                 ],
-                prerequisite_codes=[f"{prefix}_MATH_9_ALG_001"]
+                prerequisite_codes=[f"{prefix}_MATH_9_ALG_001"],
             ),
             f"{prefix}_MATH_10_GEOM_001": CurriculumObjectiveData(
                 objective_code=f"{prefix}_MATH_10_GEOM_001",
@@ -88,9 +89,9 @@ class UKNationalProvider(BaseCurriculumProvider):
                 description="Use circle theorems including angles at centre, cyclic quadrilaterals, and tangents.",
                 example_questions=[
                     "Prove that angles in the same segment are equal",
-                    "Calculate missing angles using circle theorems"
+                    "Calculate missing angles using circle theorems",
                 ],
-                prerequisite_codes=[f"{prefix}_MATH_9_GEOM_001"]
+                prerequisite_codes=[f"{prefix}_MATH_9_GEOM_001"],
             ),
         }
 
@@ -111,9 +112,9 @@ class UKNationalProvider(BaseCurriculumProvider):
                 description="Understand work done as energy transfer and apply W = Fd equation.",
                 example_questions=[
                     "Calculate work done when a 50N force moves an object 10m",
-                    "How much energy is transferred when pushing a box?"
+                    "How much energy is transferred when pushing a box?",
                 ],
-                prerequisite_codes=[f"{prefix}_PHYS_9_FORCES_001"]
+                prerequisite_codes=[f"{prefix}_PHYS_9_FORCES_001"],
             ),
             f"{prefix}_CHEM_10_ATOMIC_001": CurriculumObjectiveData(
                 objective_code=f"{prefix}_CHEM_10_ATOMIC_001",
@@ -127,20 +128,19 @@ class UKNationalProvider(BaseCurriculumProvider):
                 description="Learn about protons, neutrons, electrons, and how elements are arranged in the periodic table.",
                 example_questions=[
                     "Describe the structure of an atom",
-                    "Explain why elements are arranged in groups"
+                    "Explain why elements are arranged in groups",
                 ],
-                prerequisite_codes=[f"{prefix}_CHEM_9_MATTER_001"]
+                prerequisite_codes=[f"{prefix}_CHEM_9_MATTER_001"],
             ),
         }
 
     def get_objectives_for_grade_subject(
-        self,
-        grade_level: int,
-        subject: str
+        self, grade_level: int, subject: str
     ) -> List[CurriculumObjectiveData]:
         """Get all objectives for grade and subject"""
         return [
-            obj for obj in self.objectives.values()
+            obj
+            for obj in self.objectives.values()
             if obj.grade_level == grade_level and obj.subject == subject
         ]
 
@@ -170,10 +170,7 @@ class UKNationalProvider(BaseCurriculumProvider):
         return next_objs
 
     def search_objectives(
-        self,
-        query: str,
-        subject: Optional[str] = None,
-        grade_level: Optional[int] = None
+        self, query: str, subject: Optional[str] = None, grade_level: Optional[int] = None
     ) -> List[CurriculumObjectiveData]:
         """Search objectives by query"""
         query_lower = query.lower()
@@ -185,9 +182,11 @@ class UKNationalProvider(BaseCurriculumProvider):
             if grade_level and obj.grade_level != grade_level:
                 continue
 
-            if (query_lower in obj.objective_text.lower() or
-                query_lower in obj.topic.lower() or
-                (obj.subtopic and query_lower in obj.subtopic.lower())):
+            if (
+                query_lower in obj.objective_text.lower()
+                or query_lower in obj.topic.lower()
+                or (obj.subtopic and query_lower in obj.subtopic.lower())
+            ):
                 results.append(obj)
 
         return results

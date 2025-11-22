@@ -1,6 +1,7 @@
 """
 Conversation and Message Models
 """
+
 from sqlalchemy import Column, String, Integer, TIMESTAMP, ForeignKey, Text, Boolean, JSON
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
@@ -11,6 +12,7 @@ from datetime import datetime
 
 class ConversationSession(Base):
     """Chat session between student and mentor"""
+
     __tablename__ = "conversation_sessions"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -38,6 +40,7 @@ class ConversationSession(Base):
 
 class Message(Base):
     """Individual message in a conversation"""
+
     __tablename__ = "messages"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)

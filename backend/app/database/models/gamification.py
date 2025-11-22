@@ -3,6 +3,7 @@ Gamification Models
 
 Includes: Badge, StudentBadge, StudentXPLog, StudentStreak
 """
+
 from sqlalchemy import Column, String, Integer, TIMESTAMP, ForeignKey, Text, Date, Boolean
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
@@ -13,6 +14,7 @@ from datetime import datetime, date
 
 class Badge(Base):
     """Badge/Achievement definitions"""
+
     __tablename__ = "badges"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -28,7 +30,7 @@ class Badge(Base):
     condition_json = Column(Text, nullable=True)  # JSON string with complex conditions
 
     # Rarity
-    rarity = Column(String(20), default='common')  # common, rare, epic, legendary
+    rarity = Column(String(20), default="common")  # common, rare, epic, legendary
 
     # Metadata
     is_active = Column(Boolean, default=True)
@@ -41,6 +43,7 @@ class Badge(Base):
 
 class StudentBadge(Base):
     """Badges earned by students"""
+
     __tablename__ = "student_badges"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -56,13 +59,16 @@ class StudentBadge(Base):
 
 class StudentXPLog(Base):
     """XP transaction log for students"""
+
     __tablename__ = "student_xp_logs"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     student_id = Column(UUID(as_uuid=True), ForeignKey("students.id"), nullable=False)
 
     xp_amount = Column(Integer, nullable=False)
-    source = Column(String(100), nullable=False)  # 'message', 'correct_answer', 'streak_bonus', etc.
+    source = Column(
+        String(100), nullable=False
+    )  # 'message', 'correct_answer', 'streak_bonus', etc.
     description = Column(Text, nullable=True)
 
     # Reference
@@ -78,6 +84,7 @@ class StudentXPLog(Base):
 
 class StudentStreak(Base):
     """Daily activity streak tracking"""
+
     __tablename__ = "student_streaks"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)

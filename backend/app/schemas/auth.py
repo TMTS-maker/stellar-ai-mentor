@@ -3,6 +3,7 @@ Pydantic Schemas for Authentication
 
 Request and response models for auth endpoints
 """
+
 from pydantic import BaseModel, EmailStr, Field, validator
 from typing import Optional
 from datetime import datetime
@@ -13,14 +14,17 @@ import uuid
 # Request Schemas
 # ============================================================================
 
+
 class LoginRequest(BaseModel):
     """Login request"""
+
     email: EmailStr
     password: str = Field(..., min_length=8)
 
 
 class RegisterRequest(BaseModel):
     """User registration request"""
+
     email: EmailStr
     password: str = Field(..., min_length=8, max_length=100)
     confirm_password: str = Field(..., min_length=8, max_length=100)
@@ -37,40 +41,42 @@ class RegisterRequest(BaseModel):
     subjects: Optional[list[str]] = None
     grade_levels: Optional[list[int]] = None
 
-    @validator('confirm_password')
+    @validator("confirm_password")
     def passwords_match(cls, v, values):
-        if 'password' in values and v != values['password']:
-            raise ValueError('Passwords do not match')
+        if "password" in values and v != values["password"]:
+            raise ValueError("Passwords do not match")
         return v
 
-    @validator('grade_level')
+    @validator("grade_level")
     def validate_grade_for_student(cls, v, values):
-        if values.get('user_type') == 'student' and v is None:
-            raise ValueError('Grade level is required for students')
+        if values.get("user_type") == "student" and v is None:
+            raise ValueError("Grade level is required for students")
         return v
 
-    @validator('subjects')
+    @validator("subjects")
     def validate_subjects_for_teacher(cls, v, values):
-        if values.get('user_type') == 'teacher' and not v:
-            raise ValueError('Subjects are required for teachers')
+        if values.get("user_type") == "teacher" and not v:
+            raise ValueError("Subjects are required for teachers")
         return v
 
 
 class RefreshTokenRequest(BaseModel):
     """Refresh token request"""
+
     refresh_token: str
 
 
 class PasswordChangeRequest(BaseModel):
     """Password change request"""
+
     current_password: str
     new_password: str = Field(..., min_length=8, max_length=100)
     confirm_new_password: str = Field(..., min_length=8, max_length=100)
 
-    @validator('confirm_new_password')
+    @validator("confirm_new_password")
     def passwords_match(cls, v, values):
-        if 'new_password' in values and v != values['new_password']:
-            raise ValueError('New passwords do not match')
+        if "new_password" in values and v != values["new_password"]:
+            raise ValueError("New passwords do not match")
         return v
 
 
@@ -78,8 +84,10 @@ class PasswordChangeRequest(BaseModel):
 # Response Schemas
 # ============================================================================
 
+
 class Token(BaseModel):
     """JWT token response"""
+
     access_token: str
     refresh_token: Optional[str] = None
     token_type: str = "bearer"
@@ -88,6 +96,7 @@ class Token(BaseModel):
 
 class UserResponse(BaseModel):
     """User information response"""
+
     id: uuid.UUID
     email: str
     full_name: str
@@ -102,6 +111,7 @@ class UserResponse(BaseModel):
 
 class StudentResponse(UserResponse):
     """Student-specific response"""
+
     school_id: Optional[uuid.UUID]
     grade_level: int
     age: Optional[int]
@@ -115,6 +125,7 @@ class StudentResponse(UserResponse):
 
 class TeacherResponse(UserResponse):
     """Teacher-specific response"""
+
     school_id: uuid.UUID
     subjects: list[str]
     grade_levels: list[int]
@@ -125,6 +136,7 @@ class TeacherResponse(UserResponse):
 
 class LoginResponse(BaseModel):
     """Complete login response with token and user info"""
+
     access_token: str
     refresh_token: Optional[str] = None
     token_type: str = "bearer"
@@ -133,6 +145,7 @@ class LoginResponse(BaseModel):
 
 class RegisterResponse(BaseModel):
     """Registration success response"""
+
     message: str
     user_id: uuid.UUID
     email: str
@@ -140,5 +153,6 @@ class RegisterResponse(BaseModel):
 
 class MessageResponse(BaseModel):
     """Generic message response"""
+
     message: str
     detail: Optional[str] = None

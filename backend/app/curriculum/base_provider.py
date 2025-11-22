@@ -3,6 +3,7 @@ Base Curriculum Provider
 
 Abstract base class for all curriculum providers
 """
+
 from abc import ABC, abstractmethod
 from typing import List, Dict, Any, Optional
 from dataclasses import dataclass
@@ -11,6 +12,7 @@ from dataclasses import dataclass
 @dataclass
 class CurriculumObjectiveData:
     """Data class for curriculum objective"""
+
     objective_code: str
     objective_text: str
     subject: str
@@ -31,7 +33,9 @@ class BaseCurriculumProvider(ABC):
     Each curriculum system (CBSE, IGCSE, Common Core) implements this interface
     """
 
-    def __init__(self, curriculum_type: str, curriculum_name: str, country: str, board: Optional[str] = None):
+    def __init__(
+        self, curriculum_type: str, curriculum_name: str, country: str, board: Optional[str] = None
+    ):
         self.curriculum_type = curriculum_type
         self.curriculum_name = curriculum_name
         self.country = country
@@ -39,9 +43,7 @@ class BaseCurriculumProvider(ABC):
 
     @abstractmethod
     def get_objectives_for_grade_subject(
-        self,
-        grade_level: int,
-        subject: str
+        self, grade_level: int, subject: str
     ) -> List[CurriculumObjectiveData]:
         """
         Get all curriculum objectives for a specific grade and subject
@@ -96,10 +98,7 @@ class BaseCurriculumProvider(ABC):
 
     @abstractmethod
     def search_objectives(
-        self,
-        query: str,
-        subject: Optional[str] = None,
-        grade_level: Optional[int] = None
+        self, query: str, subject: Optional[str] = None, grade_level: Optional[int] = None
     ) -> List[CurriculumObjectiveData]:
         """
         Search for objectives by text query
@@ -136,7 +135,7 @@ class BaseCurriculumProvider(ABC):
         Returns:
             True if valid
         """
-        parts = objective_code.split('_')
+        parts = objective_code.split("_")
         return len(parts) >= 4  # e.g., CBSE_MATH_10_ALG_001
 
     def get_difficulty_range(self) -> tuple[int, int]:

@@ -3,6 +3,7 @@ Nova - Chemistry Mentor
 
 Curious and experimental chemistry guide who makes reactions fascinating
 """
+
 from app.agents.base_agent import BaseAgent
 from app.llm.router import MultiLLMRouter
 from typing import Dict, Any
@@ -16,13 +17,13 @@ class NovaMentor(BaseAgent):
             agent_id="nova",
             name="Nova",
             subject="CHEMISTRY",
-            personality="Curious and experimental, uses vivid descriptions of chemical reactions"
+            personality="Curious and experimental, uses vivid descriptions of chemical reactions",
         )
         self.llm_router = MultiLLMRouter()
 
     def build_system_prompt(self, context: Dict[str, Any]) -> str:
-        student = context.get('student', {})
-        curriculum = context.get('curriculum', {})
+        student = context.get("student", {})
+        curriculum = context.get("curriculum", {})
 
         return f"""You are Nova, a curious and experimental chemistry mentor!
 
@@ -51,16 +52,16 @@ Make chemistry come alive! Show them the magic in everyday reactions!"""
 
         llm_response = await self.llm_router.route_and_generate(
             prompt=message,
-            context={'system_prompt': system_prompt, **context},
-            routing_hints={'subject': self.subject, 'curriculum_aligned': True}
+            context={"system_prompt": system_prompt, **context},
+            routing_hints={"subject": self.subject, "curriculum_aligned": True},
         )
 
         return {
-            'text': llm_response['text'],
-            'mentor_id': self.agent_id,
-            'llm_provider': llm_response['provider'],
-            'model_name': llm_response['model'],
-            'tokens_used': llm_response['tokens_used'],
-            'objective_id': self.extract_learning_objective(context),
-            'metadata': {**llm_response.get('metadata', {}), 'subject_area': 'chemistry'}
+            "text": llm_response["text"],
+            "mentor_id": self.agent_id,
+            "llm_provider": llm_response["provider"],
+            "model_name": llm_response["model"],
+            "tokens_used": llm_response["tokens_used"],
+            "objective_id": self.extract_learning_objective(context),
+            "metadata": {**llm_response.get("metadata", {}), "subject_area": "chemistry"},
         }

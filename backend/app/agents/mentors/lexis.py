@@ -3,6 +3,7 @@ Lexis - Language & Literature Mentor
 
 Expressive and articulate language arts guide who fosters love of reading and writing
 """
+
 from app.agents.base_agent import BaseAgent
 from app.llm.router import MultiLLMRouter
 from typing import Dict, Any
@@ -16,13 +17,13 @@ class LexisMentor(BaseAgent):
             agent_id="lexis",
             name="Lexis",
             subject="LANGUAGE",
-            personality="Expressive and articulate, fosters love of reading, writing, and communication"
+            personality="Expressive and articulate, fosters love of reading, writing, and communication",
         )
         self.llm_router = MultiLLMRouter()
 
     def build_system_prompt(self, context: Dict[str, Any]) -> str:
-        student = context.get('student', {})
-        curriculum = context.get('curriculum', {})
+        student = context.get("student", {})
+        curriculum = context.get("curriculum", {})
 
         return f"""You are Lexis, an expressive and articulate language arts mentor!
 
@@ -59,16 +60,20 @@ Make language beautiful and empowering! Help them find their voice!"""
 
         llm_response = await self.llm_router.route_and_generate(
             prompt=message,
-            context={'system_prompt': system_prompt, **context},
-            routing_hints={'subject': self.subject, 'curriculum_aligned': True, 'complexity': 'medium'}
+            context={"system_prompt": system_prompt, **context},
+            routing_hints={
+                "subject": self.subject,
+                "curriculum_aligned": True,
+                "complexity": "medium",
+            },
         )
 
         return {
-            'text': llm_response['text'],
-            'mentor_id': self.agent_id,
-            'llm_provider': llm_response['provider'],
-            'model_name': llm_response['model'],
-            'tokens_used': llm_response['tokens_used'],
-            'objective_id': self.extract_learning_objective(context),
-            'metadata': {**llm_response.get('metadata', {}), 'subject_area': 'language_arts'}
+            "text": llm_response["text"],
+            "mentor_id": self.agent_id,
+            "llm_provider": llm_response["provider"],
+            "model_name": llm_response["model"],
+            "tokens_used": llm_response["tokens_used"],
+            "objective_id": self.extract_learning_objective(context),
+            "metadata": {**llm_response.get("metadata", {}), "subject_area": "language_arts"},
         }

@@ -3,6 +3,7 @@ User and User-related Models
 
 Includes: User, Student, Teacher, Parent
 """
+
 from sqlalchemy import Column, String, Integer, Boolean, TIMESTAMP, ForeignKey, Float, ARRAY, Text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
@@ -13,6 +14,7 @@ from datetime import datetime
 
 class User(Base):
     """Base user model for all user types"""
+
     __tablename__ = "users"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -23,7 +25,9 @@ class User(Base):
     is_active = Column(Boolean, default=True)
     is_verified = Column(Boolean, default=False)
     created_at = Column(TIMESTAMP, default=datetime.utcnow, nullable=False)
-    updated_at = Column(TIMESTAMP, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    updated_at = Column(
+        TIMESTAMP, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False
+    )
 
     # Relationships
     student_profile = relationship("Student", back_populates="user", uselist=False)
@@ -33,6 +37,7 @@ class User(Base):
 
 class Student(Base):
     """Student profile extending User"""
+
     __tablename__ = "students"
 
     id = Column(UUID(as_uuid=True), ForeignKey("users.id"), primary_key=True)
@@ -71,6 +76,7 @@ class Student(Base):
 
 class Teacher(Base):
     """Teacher profile extending User"""
+
     __tablename__ = "teachers"
 
     id = Column(UUID(as_uuid=True), ForeignKey("users.id"), primary_key=True)
@@ -94,6 +100,7 @@ class Teacher(Base):
 
 class Parent(Base):
     """Parent profile extending User"""
+
     __tablename__ = "parents"
 
     id = Column(UUID(as_uuid=True), ForeignKey("users.id"), primary_key=True)

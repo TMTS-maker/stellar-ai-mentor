@@ -1,6 +1,7 @@
 """
 Blockchain and H-PEM Credential Models
 """
+
 from sqlalchemy import Column, String, Float, TIMESTAMP, ForeignKey, Text, JSON
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
@@ -11,11 +12,14 @@ from datetime import datetime
 
 class HPEMCredential(Base):
     """H-PEM Credentials stored on Stellar blockchain"""
+
     __tablename__ = "hpem_credentials"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     student_id = Column(UUID(as_uuid=True), ForeignKey("students.id"), nullable=False)
-    objective_id = Column(UUID(as_uuid=True), ForeignKey("curriculum_objectives.id"), nullable=False)
+    objective_id = Column(
+        UUID(as_uuid=True), ForeignKey("curriculum_objectives.id"), nullable=False
+    )
     skill_id = Column(UUID(as_uuid=True), ForeignKey("skills.id"), nullable=True)
 
     # H-PEM Score
@@ -32,7 +36,7 @@ class HPEMCredential(Base):
     stellar_issuer_address = Column(String(56), nullable=True)
 
     # Verification
-    is_verified = Column(String(20), default='pending')  # 'pending', 'verified', 'failed'
+    is_verified = Column(String(20), default="pending")  # 'pending', 'verified', 'failed'
     verification_timestamp = Column(TIMESTAMP, nullable=True)
 
     # Metadata

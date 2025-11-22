@@ -3,6 +3,7 @@ Curriculum Providers
 
 All curriculum providers for different education systems
 """
+
 from app.curriculum.providers.indian_cbse import IndianCBSEProvider
 from app.curriculum.providers.uk_national import UKNationalProvider
 from app.curriculum.providers.us_common_core import USCommonCoreProvider

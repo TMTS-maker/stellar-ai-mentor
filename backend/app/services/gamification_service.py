@@ -3,6 +3,7 @@ Gamification Service
 
 Manages badges, streaks, leaderboards, and achievements
 """
+
 from sqlalchemy.orm import Session
 from sqlalchemy import desc, func
 from typing import List, Dict, Any, Optional
@@ -44,9 +45,10 @@ class GamificationService:
 
         # Get student's already earned badges
         earned_badge_ids = {
-            sb.badge_id for sb in self.db.query(StudentBadge).filter(
-                StudentBadge.student_id == student_id
-            ).all()
+            sb.badge_id
+            for sb in self.db.query(StudentBadge)
+            .filter(StudentBadge.student_id == student_id)
+            .all()
         }
 
         newly_awarded = []
@@ -59,20 +61,19 @@ class GamificationService:
             # Check if student qualifies
             if await self._check_badge_qualification(student, badge):
                 # Award badge
-                student_badge = StudentBadge(
-                    student_id=student_id,
-                    badge_id=badge.id
-                )
+                student_badge = StudentBadge(student_id=student_id, badge_id=badge.id)
                 self.db.add(student_badge)
 
-                newly_awarded.append({
-                    "badge_id": str(badge.id),
-                    "name": badge.name,
-                    "description": badge.description,
-                    "rarity": badge.rarity,
-                    "icon_url": badge.icon_url,
-                    "category": badge.category,
-                })
+                newly_awarded.append(
+                    {
+                        "badge_id": str(badge.id),
+                        "name": badge.name,
+                        "description": badge.description,
+                        "rarity": badge.rarity,
+                        "icon_url": badge.icon_url,
+                        "category": badge.category,
+                    }
+                )
 
         if newly_awarded:
             self.db.commit()
@@ -97,25 +98,27 @@ class GamificationService:
         # Streak-based badges
         if badge.streak_required:
             streak = await self.get_student_streak(str(student.id))
-            if streak and streak['current_streak'] >= badge.streak_required:
+            if streak and streak["current_streak"] >= badge.streak_required:
                 return True
 
         # Category-specific checks
-        if badge.category == 'first_message':
+        if badge.category == "first_message":
             # Check if student has sent at least 1 message
-            message_count = self.db.query(StudentXPLog).filter(
-                StudentXPLog.student_id == student.id,
-                StudentXPLog.source == 'message'
-            ).count()
+            message_count = (
+                self.db.query(StudentXPLog)
+                .filter(StudentXPLog.student_id == student.id, StudentXPLog.source == "message")
+                .count()
+            )
             return message_count >= 1
 
-        if badge.category == 'level_milestone':
+        if badge.category == "level_milestone":
             # Level-based badges (e.g., level 5, 10, 25)
             if badge.condition_json:
                 import json
+
                 try:
                     conditions = json.loads(badge.condition_json)
-                    required_level = conditions.get('level')
+                    required_level = conditions.get("level")
                     if required_level and student.current_level >= required_level:
                         return True
                 except:
@@ -133,9 +136,13 @@ class GamificationService:
         Returns:
             List of earned badges
         """
-        student_badges = self.db.query(StudentBadge).join(Badge).filter(
-            StudentBadge.student_id == student_id
-        ).order_by(desc(StudentBadge.earned_at)).all()
+        student_badges = (
+            self.db.query(StudentBadge)
+            .join(Badge)
+            .filter(StudentBadge.student_id == student_id)
+            .order_by(desc(StudentBadge.earned_at))
+            .all()
+        )
 
         return [
             {
@@ -193,17 +200,12 @@ class GamificationService:
         today = date.today()
 
         # Get or create streak record
-        streak = self.db.query(StudentStreak).filter(
-            StudentStreak.student_id == student_id
-        ).first()
+        streak = self.db.query(StudentStreak).filter(StudentStreak.student_id == student_id).first()
 
         if not streak:
             # Create new streak
             streak = StudentStreak(
-                student_id=student_id,
-                current_streak=1,
-                longest_streak=1,
-                last_active_date=today
+                student_id=student_id, current_streak=1, longest_streak=1, last_active_date=today
             )
             self.db.add(streak)
             self.db.commit()
@@ -279,9 +281,7 @@ class GamificationService:
         Returns:
             Streak information or None
         """
-        streak = self.db.query(StudentStreak).filter(
-            StudentStreak.student_id == student_id
-        ).first()
+        streak = self.db.query(StudentStreak).filter(StudentStreak.student_id == student_id).first()
 
         if not streak:
             return None
@@ -298,10 +298,7 @@ class GamificationService:
     # ========================================================================
 
     async def get_leaderboard(
-        self,
-        school_id: Optional[str] = None,
-        classroom_id: Optional[str] = None,
-        limit: int = 10
+        self, school_id: Optional[str] = None, classroom_id: Optional[str] = None, limit: int = 10
     ) -> List[Dict[str, Any]]:
         """
         Get leaderboard rankings by XP
@@ -332,26 +329,30 @@ class GamificationService:
         leaderboard = []
         for rank, student in enumerate(students, start=1):
             # Get badge count
-            badge_count = self.db.query(StudentBadge).filter(
-                StudentBadge.student_id == student.id
-            ).count()
+            badge_count = (
+                self.db.query(StudentBadge).filter(StudentBadge.student_id == student.id).count()
+            )
 
             # Get streak
             streak = await self.get_student_streak(str(student.id))
 
-            leaderboard.append({
-                "rank": rank,
-                "student_id": str(student.id),
-                "student_name": student.user.full_name if student.user else "Unknown",
-                "total_xp": student.total_xp,
-                "current_level": student.current_level,
-                "badge_count": badge_count,
-                "current_streak": streak['current_streak'] if streak else 0,
-            })
+            leaderboard.append(
+                {
+                    "rank": rank,
+                    "student_id": str(student.id),
+                    "student_name": student.user.full_name if student.user else "Unknown",
+                    "total_xp": student.total_xp,
+                    "current_level": student.current_level,
+                    "badge_count": badge_count,
+                    "current_streak": streak["current_streak"] if streak else 0,
+                }
+            )
 
         return leaderboard
 
-    async def get_student_rank(self, student_id: str, school_id: Optional[str] = None) -> Dict[str, Any]:
+    async def get_student_rank(
+        self, student_id: str, school_id: Optional[str] = None
+    ) -> Dict[str, Any]:
         """
         Get student's rank in leaderboard
 
@@ -368,8 +369,7 @@ class GamificationService:
 
         # Count students with higher XP
         query = self.db.query(func.count(Student.id)).filter(
-            Student.is_active == True,
-            Student.total_xp > student.total_xp
+            Student.is_active == True, Student.total_xp > student.total_xp
         )
 
         if school_id:
@@ -390,7 +390,9 @@ class GamificationService:
             "total_students": total_students,
             "total_xp": student.total_xp,
             "current_level": student.current_level,
-            "percentile": round((1 - (rank / total_students)) * 100, 1) if total_students > 0 else 0,
+            "percentile": (
+                round((1 - (rank / total_students)) * 100, 1) if total_students > 0 else 0
+            ),
         }
 
     # ========================================================================
@@ -418,20 +420,26 @@ class GamificationService:
         streak = await self.get_student_streak(student_id)
 
         # Get rank
-        rank_info = await self.get_student_rank(student_id, str(student.school_id) if student.school_id else None)
+        rank_info = await self.get_student_rank(
+            student_id, str(student.school_id) if student.school_id else None
+        )
 
         # Get XP earned today
         today_start = datetime.combine(date.today(), datetime.min.time())
-        xp_today = self.db.query(func.sum(StudentXPLog.xp_amount)).filter(
-            StudentXPLog.student_id == student_id,
-            StudentXPLog.timestamp >= today_start
-        ).scalar() or 0
+        xp_today = (
+            self.db.query(func.sum(StudentXPLog.xp_amount))
+            .filter(StudentXPLog.student_id == student_id, StudentXPLog.timestamp >= today_start)
+            .scalar()
+            or 0
+        )
 
         # Get total messages sent
-        total_messages = self.db.query(func.count(StudentXPLog.id)).filter(
-            StudentXPLog.student_id == student_id,
-            StudentXPLog.source == 'message'
-        ).scalar() or 0
+        total_messages = (
+            self.db.query(func.count(StudentXPLog.id))
+            .filter(StudentXPLog.student_id == student_id, StudentXPLog.source == "message")
+            .scalar()
+            or 0
+        )
 
         return {
             "student_id": student_id,
@@ -443,7 +451,8 @@ class GamificationService:
                 "total_earned": len(badges),
                 "badges": badges[:5],  # Top 5 recent badges
             },
-            "streak": streak or {
+            "streak": streak
+            or {
                 "current_streak": 0,
                 "longest_streak": 0,
             },

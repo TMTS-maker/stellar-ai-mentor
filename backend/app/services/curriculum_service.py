@@ -3,6 +3,7 @@ Curriculum Service
 
 Manages curriculum data, student progress, and integration with AI mentors
 """
+
 from sqlalchemy.orm import Session
 from typing import Dict, Any, List, Optional
 import uuid
@@ -11,7 +12,7 @@ from app.database.models.curriculum import (
     Curriculum,
     CurriculumObjective,
     Skill,
-    StudentSkillProgress
+    StudentSkillProgress,
 )
 from app.database.models.user import Student
 from app.curriculum.providers import get_curriculum_provider, list_available_curricula
@@ -26,11 +27,7 @@ class CurriculumService:
     def __init__(self, db: Session):
         self.db = db
 
-    async def get_student_curriculum_context(
-        self,
-        student_id: str,
-        subject: str
-    ) -> Dict[str, Any]:
+    async def get_student_curriculum_context(self, student_id: str, subject: str) -> Dict[str, Any]:
         """
         Build curriculum context for student
 
@@ -49,9 +46,9 @@ class CurriculumService:
             return self._get_default_context(subject)
 
         # 2. Get curriculum
-        curriculum = self.db.query(Curriculum).filter(
-            Curriculum.id == student.curriculum_id
-        ).first()
+        curriculum = (
+            self.db.query(Curriculum).filter(Curriculum.id == student.curriculum_id).first()
+        )
 
         if not curriculum:
             return self._get_default_context(subject)
@@ -64,8 +61,7 @@ class CurriculumService:
 
         # 4. Get current objectives for student's grade and subject
         current_objectives = provider.get_objectives_for_grade_subject(
-            grade_level=student.grade_level,
-            subject=subject
+            grade_level=student.grade_level, subject=subject
         )
 
         # 5. Get student's skill progress
@@ -73,9 +69,7 @@ class CurriculumService:
 
         # 6. Recommend next objectives based on progress
         recommended_objectives = self._recommend_next_objectives(
-            provider,
-            current_objectives,
-            skill_progress
+            provider, current_objectives, skill_progress
         )
 
         return {
@@ -92,7 +86,7 @@ class CurriculumService:
                     "difficulty_level": obj.difficulty_level,
                 }
                 for obj in recommended_objectives[:3]  # Top 3 recommendations
-            ]
+            ],
         }
 
     def _get_default_context(self, subject: str) -> Dict[str, Any]:
@@ -101,13 +95,11 @@ class CurriculumService:
             "curriculum_id": None,
             "curriculum_name": "General Curriculum",
             "curriculum_type": None,
-            "current_objectives": []
+            "current_objectives": [],
         }
 
     async def _get_student_progress(
-        self,
-        student_id: str,
-        subject: str
+        self, student_id: str, subject: str
     ) -> Dict[str, Dict[str, float]]:
         """
         Get student's progress on skills
@@ -115,14 +107,16 @@ class CurriculumService:
         Returns:
             Dict mapping objective_id to progress dict
         """
-        progress_records = self.db.query(StudentSkillProgress).join(
-            Skill
-        ).join(
-            CurriculumObjective
-        ).filter(
-            StudentSkillProgress.student_id == student_id,
-            CurriculumObjective.subject == subject
-        ).all()
+        progress_records = (
+            self.db.query(StudentSkillProgress)
+            .join(Skill)
+            .join(CurriculumObjective)
+            .filter(
+                StudentSkillProgress.student_id == student_id,
+                CurriculumObjective.subject == subject,
+            )
+            .all()
+        )
 
         progress_map = {}
         for record in progress_records:
@@ -130,12 +124,7 @@ class CurriculumService:
             objective = skill.objective
 
             if objective.id not in progress_map:
-                progress_map[str(objective.id)] = {
-                    "learn": 0,
-                    "verify": 0,
-                    "own": 0,
-                    "mastery": 0
-                }
+                progress_map[str(objective.id)] = {"learn": 0, "verify": 0, "own": 0, "mastery": 0}
 
             # Aggregate progress across skills for the objective
             current = progress_map[str(objective.id)]
@@ -150,7 +139,7 @@ class CurriculumService:
         self,
         provider,
         all_objectives: List[CurriculumObjectiveData],
-        progress: Dict[str, Dict[str, float]]
+        progress: Dict[str, Dict[str, float]],
     ) -> List[CurriculumObjectiveData]:
         """
         Recommend next objectives based on student progress
@@ -213,9 +202,9 @@ class CurriculumService:
             Curriculum ID
         """
         # Check if curriculum already exists
-        existing = self.db.query(Curriculum).filter(
-            Curriculum.curriculum_type == curriculum_type
-        ).first()
+        existing = (
+            self.db.query(Curriculum).filter(Curriculum.curriculum_type == curriculum_type).first()
+        )
 
         if existing:
             return str(existing.id)
@@ -229,7 +218,7 @@ class CurriculumService:
             curriculum_name=provider.curriculum_name,
             country=provider.country,
             board=provider.board,
-            description=f"Curriculum for {provider.curriculum_name}"
+            description=f"Curriculum for {provider.curriculum_name}",
         )
         self.db.add(curriculum)
         self.db.flush()
@@ -246,7 +235,7 @@ class CurriculumService:
         curriculum_type: str,
         query: str,
         subject: Optional[str] = None,
-        grade_level: Optional[int] = None
+        grade_level: Optional[int] = None,
     ) -> List[Dict[str, Any]]:
         """
         Search curriculum objectives
@@ -277,9 +266,7 @@ class CurriculumService:
         ]
 
     async def get_objective_details(
-        self,
-        curriculum_type: str,
-        objective_code: str
+        self, curriculum_type: str, objective_code: str
     ) -> Optional[Dict[str, Any]]:
         """
         Get detailed information about a specific objective

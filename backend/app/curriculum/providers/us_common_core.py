@@ -3,6 +3,7 @@ US Common Core Curriculum Provider
 
 Implements curriculum objectives for US Common Core State Standards
 """
+
 from typing import List, Optional
 from app.curriculum.base_provider import BaseCurriculumProvider, CurriculumObjectiveData
 
@@ -19,7 +20,7 @@ class USCommonCoreProvider(BaseCurriculumProvider):
             curriculum_type="US_COMMON_CORE",
             curriculum_name="Common Core State Standards",
             country="United States",
-            board="Common Core"
+            board="Common Core",
         )
         self._initialize_objectives()
 
@@ -47,9 +48,9 @@ class USCommonCoreProvider(BaseCurriculumProvider):
                 description="Create equations in one variable and use them to solve problems. Include equations arising from linear and quadratic functions.",
                 example_questions=[
                     "Write an equation to model a real-world problem",
-                    "Solve problems using linear inequalities"
+                    "Solve problems using linear inequalities",
                 ],
-                prerequisite_codes=["CCSS_MATH_9_ALG_002"]
+                prerequisite_codes=["CCSS_MATH_9_ALG_002"],
             ),
             "CCSS_MATH_10_GEOM_001": CurriculumObjectiveData(
                 objective_code="CCSS_MATH_10_GEOM_001",
@@ -63,9 +64,9 @@ class USCommonCoreProvider(BaseCurriculumProvider):
                 description="Prove theorems about triangles. Theorems include: measures of interior angles of a triangle sum to 180°; base angles of isosceles triangles are congruent.",
                 example_questions=[
                     "Prove that the angles of a triangle sum to 180°",
-                    "Prove properties of isosceles triangles"
+                    "Prove properties of isosceles triangles",
                 ],
-                prerequisite_codes=["CCSS_MATH_9_GEOM_001"]
+                prerequisite_codes=["CCSS_MATH_9_GEOM_001"],
             ),
             "CCSS_MATH_10_FUNC_001": CurriculumObjectiveData(
                 objective_code="CCSS_MATH_10_FUNC_001",
@@ -79,9 +80,9 @@ class USCommonCoreProvider(BaseCurriculumProvider):
                 description="For a function that models a relationship between two quantities, interpret key features of graphs and tables in terms of the quantities.",
                 example_questions=[
                     "Interpret the slope and intercept of a linear function",
-                    "Analyze the graph of a quadratic function"
+                    "Analyze the graph of a quadratic function",
                 ],
-                prerequisite_codes=["CCSS_MATH_9_FUNC_001"]
+                prerequisite_codes=["CCSS_MATH_9_FUNC_001"],
             ),
         }
 
@@ -100,9 +101,9 @@ class USCommonCoreProvider(BaseCurriculumProvider):
                 description="Construct an explanation based on evidence that the process of evolution primarily results from genetic variation, natural selection, and adaptation.",
                 example_questions=[
                     "Explain how natural selection drives evolution",
-                    "Give examples of adaptations in organisms"
+                    "Give examples of adaptations in organisms",
                 ],
-                prerequisite_codes=["NGSS_BIO_9_CELLS_001"]
+                prerequisite_codes=["NGSS_BIO_9_CELLS_001"],
             ),
             "NGSS_CHEM_10_REACT_001": CurriculumObjectiveData(
                 objective_code="NGSS_CHEM_10_REACT_001",
@@ -116,9 +117,9 @@ class USCommonCoreProvider(BaseCurriculumProvider):
                 description="Develop models to illustrate the changes in the composition of the nucleus of the atom and the energy released during radioactive decay.",
                 example_questions=[
                     "Model atomic structure showing protons, neutrons, electrons",
-                    "Explain radioactive decay processes"
+                    "Explain radioactive decay processes",
                 ],
-                prerequisite_codes=["NGSS_CHEM_9_MATTER_001"]
+                prerequisite_codes=["NGSS_CHEM_9_MATTER_001"],
             ),
         }
 
@@ -137,9 +138,9 @@ class USCommonCoreProvider(BaseCurriculumProvider):
                 description="Cite strong and thorough textual evidence to support analysis of what the text says explicitly as well as inferences drawn from the text.",
                 example_questions=[
                     "Analyze a passage and cite textual evidence",
-                    "Draw inferences from text with support"
+                    "Draw inferences from text with support",
                 ],
-                prerequisite_codes=["CCSS_ELA_9_READ_001"]
+                prerequisite_codes=["CCSS_ELA_9_READ_001"],
             ),
             "CCSS_ELA_10_WRITE_001": CurriculumObjectiveData(
                 objective_code="CCSS_ELA_10_WRITE_001",
@@ -153,20 +154,19 @@ class USCommonCoreProvider(BaseCurriculumProvider):
                 description="Write arguments to support claims in an analysis of substantive topics or texts, using valid reasoning and relevant evidence.",
                 example_questions=[
                     "Write an argumentative essay on a given topic",
-                    "Construct a thesis statement with supporting evidence"
+                    "Construct a thesis statement with supporting evidence",
                 ],
-                prerequisite_codes=["CCSS_ELA_9_WRITE_001"]
+                prerequisite_codes=["CCSS_ELA_9_WRITE_001"],
             ),
         }
 
     def get_objectives_for_grade_subject(
-        self,
-        grade_level: int,
-        subject: str
+        self, grade_level: int, subject: str
     ) -> List[CurriculumObjectiveData]:
         """Get all objectives for grade and subject"""
         return [
-            obj for obj in self.objectives.values()
+            obj
+            for obj in self.objectives.values()
             if obj.grade_level == grade_level and obj.subject == subject
         ]
 
@@ -196,10 +196,7 @@ class USCommonCoreProvider(BaseCurriculumProvider):
         return next_objs
 
     def search_objectives(
-        self,
-        query: str,
-        subject: Optional[str] = None,
-        grade_level: Optional[int] = None
+        self, query: str, subject: Optional[str] = None, grade_level: Optional[int] = None
     ) -> List[CurriculumObjectiveData]:
         """Search objectives by query"""
         query_lower = query.lower()
@@ -211,9 +208,11 @@ class USCommonCoreProvider(BaseCurriculumProvider):
             if grade_level and obj.grade_level != grade_level:
                 continue
 
-            if (query_lower in obj.objective_text.lower() or
-                query_lower in obj.topic.lower() or
-                (obj.subtopic and query_lower in obj.subtopic.lower())):
+            if (
+                query_lower in obj.objective_text.lower()
+                or query_lower in obj.topic.lower()
+                or (obj.subtopic and query_lower in obj.subtopic.lower())
+            ):
                 results.append(obj)
 
         return results

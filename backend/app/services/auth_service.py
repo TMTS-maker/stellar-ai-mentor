@@ -3,6 +3,7 @@ Authentication Service
 
 Business logic for user authentication, registration, and management
 """
+
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
 from datetime import timedelta
@@ -13,7 +14,7 @@ from app.core.security import (
     verify_password,
     get_password_hash,
     create_access_token,
-    create_refresh_token
+    create_refresh_token,
 )
 from app.core.config import settings
 from app.schemas.auth import (
@@ -23,7 +24,7 @@ from app.schemas.auth import (
     LoginResponse,
     UserResponse,
     StudentResponse,
-    TeacherResponse
+    TeacherResponse,
 )
 
 
@@ -50,8 +51,7 @@ class AuthService:
         existing_user = self.db.query(User).filter(User.email == request.email).first()
         if existing_user:
             raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Email already registered"
+                status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered"
             )
 
         # Hash password
@@ -64,7 +64,7 @@ class AuthService:
             full_name=request.full_name,
             user_type=request.user_type,
             is_active=True,
-            is_verified=False
+            is_verified=False,
         )
 
         self.db.add(user)
@@ -80,7 +80,7 @@ class AuthService:
                 curriculum_id=request.curriculum_id,
                 total_xp=0,
                 current_level=1,
-                h_pem_level=0.0
+                h_pem_level=0.0,
             )
             self.db.add(student)
 
@@ -89,14 +89,12 @@ class AuthService:
                 id=user.id,
                 school_id=request.school_id,
                 subjects=request.subjects or [],
-                grade_levels=request.grade_levels or []
+                grade_levels=request.grade_levels or [],
             )
             self.db.add(teacher)
 
         elif request.user_type == "parent":
-            parent = Parent(
-                id=user.id
-            )
+            parent = Parent(id=user.id)
             self.db.add(parent)
 
         self.db.commit()
@@ -105,7 +103,7 @@ class AuthService:
         return {
             "message": "User registered successfully",
             "user_id": str(user.id),
-            "email": user.email
+            "email": user.email,
         }
 
     async def login(self, request: LoginRequest) -> LoginResponse:
@@ -133,14 +131,11 @@ class AuthService:
 
         if not user.is_active:
             raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="User account is inactive"
+                status_code=status.HTTP_400_BAD_REQUEST, detail="User account is inactive"
             )
 
         # Create tokens
-        access_token = create_access_token(
-            data={"sub": str(user.id), "user_type": user.user_type}
-        )
+        access_token = create_access_token(data={"sub": str(user.id), "user_type": user.user_type})
 
         refresh_token = create_refresh_token(
             data={"sub": str(user.id), "user_type": user.user_type}
@@ -153,7 +148,7 @@ class AuthService:
             access_token=access_token,
             refresh_token=refresh_token,
             token_type="bearer",
-            user=user_response
+            user=user_response,
         )
 
     async def get_user_profile(self, user_id: uuid.UUID) -> dict:
@@ -172,10 +167,7 @@ class AuthService:
         user = self.db.query(User).filter(User.id == user_id).first()
 
         if not user:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="User not found"
-            )
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
 
         if user.user_type == "student":
             student = self.db.query(Student).filter(Student.id == user_id).first()
@@ -183,7 +175,7 @@ class AuthService:
                 # Merge user and student data
                 return {
                     **UserResponse.from_orm(user).dict(),
-                    **StudentResponse.from_orm(student).dict()
+                    **StudentResponse.from_orm(student).dict(),
                 }
 
         elif user.user_type == "teacher":
@@ -191,16 +183,13 @@ class AuthService:
             if teacher:
                 return {
                     **UserResponse.from_orm(user).dict(),
-                    **TeacherResponse.from_orm(teacher).dict()
+                    **TeacherResponse.from_orm(teacher).dict(),
                 }
 
         return UserResponse.from_orm(user).dict()
 
     async def change_password(
-        self,
-        user_id: uuid.UUID,
-        current_password: str,
-        new_password: str
+        self, user_id: uuid.UUID, current_password: str, new_password: str
     ) -> dict:
         """
         Change user password
@@ -219,15 +208,11 @@ class AuthService:
         user = self.db.query(User).filter(User.id == user_id).first()
 
         if not user:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="User not found"
-            )
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
 
         if not verify_password(current_password, user.hashed_password):
             raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Current password is incorrect"
+                status_code=status.HTTP_400_BAD_REQUEST, detail="Current password is incorrect"
             )
 
         user.hashed_password = get_password_hash(new_password)
@@ -254,8 +239,7 @@ class AuthService:
 
         if payload is None or not validate_token_type(payload, "refresh"):
             raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid refresh token"
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid refresh token"
             )
 
         user_id = payload.get("sub")
@@ -263,17 +247,14 @@ class AuthService:
 
         if not user_id:
             raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid refresh token"
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid refresh token"
             )
 
         # Create new access token
-        access_token = create_access_token(
-            data={"sub": user_id, "user_type": user_type}
-        )
+        access_token = create_access_token(data={"sub": user_id, "user_type": user_type})
 
         return Token(
             access_token=access_token,
             token_type="bearer",
-            expires_in=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60
+            expires_in=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60,
         )

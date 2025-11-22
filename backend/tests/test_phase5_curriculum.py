@@ -3,13 +3,14 @@ Phase 5 Curriculum Tests
 
 Tests for curriculum providers, curriculum service, and integration
 """
+
 import pytest
 from app.curriculum.providers import (
     IndianCBSEProvider,
     UKNationalProvider,
     USCommonCoreProvider,
     get_curriculum_provider,
-    list_available_curricula
+    list_available_curricula,
 )
 
 
@@ -95,11 +96,7 @@ class TestCurriculumProviders:
     def test_search_objectives_with_filters(self):
         """Test searching with subject and grade filters"""
         provider = IndianCBSEProvider()
-        results = provider.search_objectives(
-            "quadratic",
-            subject="MATH",
-            grade_level=10
-        )
+        results = provider.search_objectives("quadratic", subject="MATH", grade_level=10)
 
         assert isinstance(results, list)
         for obj in results:
@@ -199,15 +196,15 @@ class TestCurriculumObjectiveData:
         provider = IndianCBSEProvider()
         obj = provider.get_objective_by_code("CBSE_MATH_10_ALG_001")
 
-        assert hasattr(obj, 'objective_code')
-        assert hasattr(obj, 'objective_text')
-        assert hasattr(obj, 'subject')
-        assert hasattr(obj, 'grade_level')
-        assert hasattr(obj, 'topic')
-        assert hasattr(obj, 'difficulty_level')
-        assert hasattr(obj, 'blooms_level')
-        assert hasattr(obj, 'example_questions')
-        assert hasattr(obj, 'prerequisite_codes')
+        assert hasattr(obj, "objective_code")
+        assert hasattr(obj, "objective_text")
+        assert hasattr(obj, "subject")
+        assert hasattr(obj, "grade_level")
+        assert hasattr(obj, "topic")
+        assert hasattr(obj, "difficulty_level")
+        assert hasattr(obj, "blooms_level")
+        assert hasattr(obj, "example_questions")
+        assert hasattr(obj, "prerequisite_codes")
 
     def test_objective_difficulty_in_range(self):
         """Test that difficulty levels are in valid range"""
@@ -234,7 +231,7 @@ class TestMultipleCurricula:
         providers = [
             IndianCBSEProvider(),
             UKNationalProvider(variant="NATIONAL"),
-            USCommonCoreProvider()
+            USCommonCoreProvider(),
         ]
 
         for provider in providers:
@@ -260,9 +257,9 @@ class TestMultipleCurricula:
 # Test results summary
 def test_summary():
     """Print test summary"""
-    print("\n" + "="*70)
+    print("\n" + "=" * 70)
     print("✅ Phase 5 Curriculum Tests Complete")
-    print("="*70)
+    print("=" * 70)
     print("Providers tested:")
     print("  - Indian CBSE")
     print("  - UK National Curriculum")
@@ -275,4 +272,4 @@ def test_summary():
     print("  - Search functionality")
     print("  - Curriculum registry")
     print("  - Data structure validation")
-    print("="*70)
+    print("=" * 70)

@@ -3,7 +3,19 @@ Curriculum Models
 
 Implements the comprehensive curriculum system for Indian (CBSE/ICSE), UK, and US curricula
 """
-from sqlalchemy import Column, String, Integer, Float, TIMESTAMP, ForeignKey, Text, JSON, ARRAY, Boolean
+
+from sqlalchemy import (
+    Column,
+    String,
+    Integer,
+    Float,
+    TIMESTAMP,
+    ForeignKey,
+    Text,
+    JSON,
+    ARRAY,
+    Boolean,
+)
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from app.database.base import Base
@@ -13,6 +25,7 @@ from datetime import datetime
 
 class Curriculum(Base):
     """Top-level curriculum (e.g., CBSE, IGCSE, Common Core)"""
+
     __tablename__ = "curricula"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -33,6 +46,7 @@ class Curriculum(Base):
 
 class CurriculumObjective(Base):
     """Learning objectives/standards for each curriculum"""
+
     __tablename__ = "curriculum_objectives"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -53,7 +67,9 @@ class CurriculumObjective(Base):
     prerequisite_objective_ids = Column(ARRAY(String), default=list)
 
     # Bloom's Taxonomy
-    blooms_level = Column(String(50), nullable=True)  # Remember, Understand, Apply, Analyze, Evaluate, Create
+    blooms_level = Column(
+        String(50), nullable=True
+    )  # Remember, Understand, Apply, Analyze, Evaluate, Create
 
     # Metadata
     description = Column(Text, nullable=True)
@@ -71,10 +87,13 @@ class CurriculumObjective(Base):
 
 class Skill(Base):
     """Skills derived from curriculum objectives"""
+
     __tablename__ = "skills"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    objective_id = Column(UUID(as_uuid=True), ForeignKey("curriculum_objectives.id"), nullable=False)
+    objective_id = Column(
+        UUID(as_uuid=True), ForeignKey("curriculum_objectives.id"), nullable=False
+    )
 
     skill_name = Column(String(255), nullable=False)
     skill_description = Column(Text, nullable=True)
@@ -95,12 +114,15 @@ class Skill(Base):
 
 class StudentSkillProgress(Base):
     """Track student progress on specific skills (LVO framework)"""
+
     __tablename__ = "student_skill_progress"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     student_id = Column(UUID(as_uuid=True), ForeignKey("students.id"), nullable=False)
     skill_id = Column(UUID(as_uuid=True), ForeignKey("skills.id"), nullable=False)
-    objective_id = Column(UUID(as_uuid=True), ForeignKey("curriculum_objectives.id"), nullable=False)
+    objective_id = Column(
+        UUID(as_uuid=True), ForeignKey("curriculum_objectives.id"), nullable=False
+    )
 
     # LVO Progress (0.0 to 1.0)
     learn_progress = Column(Float, default=0.0)

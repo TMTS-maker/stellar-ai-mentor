@@ -3,6 +3,7 @@ Mentor Agents Package
 
 All 8 AI mentor agents for different subjects
 """
+
 from app.agents.mentors.stella import StellaMentor
 from app.agents.mentors.max import MaxMentor
 from app.agents.mentors.nova import NovaMentor

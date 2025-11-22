@@ -9,6 +9,7 @@ Orchestrates student-mentor interactions:
 - Saves conversation to database
 - Awards XP and updates gamification
 """
+
 from sqlalchemy.orm import Session
 from typing import Dict, Any, Optional
 import uuid
@@ -30,26 +31,106 @@ class SupervisorService:
 
     # Subject keywords for detection
     SUBJECT_KEYWORDS = {
-        'MATH': ['math', 'calculate', 'equation', 'algebra', 'geometry', 'calculus', 'trigonometry', 'number', 'fraction', 'decimal'],
-        'PHYSICS': ['physics', 'force', 'motion', 'energy', 'velocity', 'acceleration', 'momentum', 'gravity', 'wave'],
-        'CHEMISTRY': ['chemistry', 'atom', 'molecule', 'reaction', 'element', 'compound', 'acid', 'base', 'chemical'],
-        'BIOLOGY': ['biology', 'cell', 'organism', 'DNA', 'evolution', 'ecosystem', 'photosynthesis', 'genetics'],
-        'LANGUAGE': ['write', 'essay', 'grammar', 'literature', 'poem', 'story', 'sentence', 'paragraph', 'writing'],
-        'TECH': ['code', 'program', 'computer', 'algorithm', 'software', 'python', 'javascript', 'app', 'technology'],
-        'ARTS': ['art', 'draw', 'paint', 'music', 'create', 'design', 'color', 'sketch', 'creative'],
-        'HISTORY': ['history', 'historical', 'ancient', 'civilization', 'war', 'revolution', 'empire', 'culture', 'geography']
+        "MATH": [
+            "math",
+            "calculate",
+            "equation",
+            "algebra",
+            "geometry",
+            "calculus",
+            "trigonometry",
+            "number",
+            "fraction",
+            "decimal",
+        ],
+        "PHYSICS": [
+            "physics",
+            "force",
+            "motion",
+            "energy",
+            "velocity",
+            "acceleration",
+            "momentum",
+            "gravity",
+            "wave",
+        ],
+        "CHEMISTRY": [
+            "chemistry",
+            "atom",
+            "molecule",
+            "reaction",
+            "element",
+            "compound",
+            "acid",
+            "base",
+            "chemical",
+        ],
+        "BIOLOGY": [
+            "biology",
+            "cell",
+            "organism",
+            "DNA",
+            "evolution",
+            "ecosystem",
+            "photosynthesis",
+            "genetics",
+        ],
+        "LANGUAGE": [
+            "write",
+            "essay",
+            "grammar",
+            "literature",
+            "poem",
+            "story",
+            "sentence",
+            "paragraph",
+            "writing",
+        ],
+        "TECH": [
+            "code",
+            "program",
+            "computer",
+            "algorithm",
+            "software",
+            "python",
+            "javascript",
+            "app",
+            "technology",
+        ],
+        "ARTS": [
+            "art",
+            "draw",
+            "paint",
+            "music",
+            "create",
+            "design",
+            "color",
+            "sketch",
+            "creative",
+        ],
+        "HISTORY": [
+            "history",
+            "historical",
+            "ancient",
+            "civilization",
+            "war",
+            "revolution",
+            "empire",
+            "culture",
+            "geography",
+        ],
     }
 
     # Subject to mentor mapping
     SUBJECT_TO_MENTOR = {
-        'MATH': 'stella',
-        'PHYSICS': 'max',
-        'CHEMISTRY': 'nova',
-        'BIOLOGY': 'darwin',
-        'LANGUAGE': 'lexis',
-        'TECH': 'neo',
-        'ARTS': 'luna',
-        'HISTORY': 'atlas'
+        "MATH": "stella",
+        "PHYSICS": "max",
+        "CHEMISTRY": "nova",
+        "BIOLOGY": "darwin",
+        "LANGUAGE": "lexis",
+        "TECH": "neo",
+        "ARTS": "luna",
+        "HISTORY": "atlas",
     }
 
     def __init__(self, db: Session):
@@ -60,7 +141,7 @@ class SupervisorService:
         student_id: str,
         message: str,
         session_id: Optional[str] = None,
-        preferred_mentor: Optional[str] = None
+        preferred_mentor: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Route student message to appropriate mentor
@@ -85,7 +166,7 @@ class SupervisorService:
             subject = self._get_subject_for_mentor(mentor_id)
         else:
             subject = self.detect_subject(message)
-            mentor_id = self.SUBJECT_TO_MENTOR.get(subject, 'stella')  # Default to Stella
+            mentor_id = self.SUBJECT_TO_MENTOR.get(subject, "stella")  # Default to Stella
 
         # 3. Get or create conversation session
         session = self._get_or_create_session(student_id, session_id, mentor_id, subject)
@@ -99,25 +180,22 @@ class SupervisorService:
 
         # 6. Save user message to database
         user_message = Message(
-            session_id=session.id,
-            role='user',
-            content=message,
-            timestamp=datetime.utcnow()
+            session_id=session.id, role="user", content=message, timestamp=datetime.utcnow()
         )
         self.db.add(user_message)
 
         # 7. Save assistant response to database
         assistant_message = Message(
             session_id=session.id,
-            role='assistant',
-            content=response['text'],
-            mentor_id=response['mentor_id'],
-            llm_provider=response.get('llm_provider'),
-            tokens_used=response.get('tokens_used'),
-            model_name=response.get('model_name'),
-            objective_id=response.get('objective_id'),
+            role="assistant",
+            content=response["text"],
+            mentor_id=response["mentor_id"],
+            llm_provider=response.get("llm_provider"),
+            tokens_used=response.get("tokens_used"),
+            model_name=response.get("model_name"),
+            objective_id=response.get("objective_id"),
             xp_earned=settings.XP_PER_MESSAGE,
-            extra_metadata=response.get('metadata')
+            extra_metadata=response.get("metadata"),
         )
         self.db.add(assistant_message)
 
@@ -142,18 +220,18 @@ class SupervisorService:
 
         # 12. Return response with gamification data
         return {
-            'text': response['text'],
-            'mentor_id': mentor_id,
-            'mentor_name': mentor.name,
-            'session_id': str(session.id),
-            'message_id': str(assistant_message.id),
-            'xp_earned': xp_earned,
-            'total_xp': student.total_xp,
-            'current_level': student.current_level,
-            'llm_provider': response.get('llm_provider'),
-            'tokens_used': response.get('tokens_used'),
-            'streak': streak_info,
-            'new_badges': new_badges,
+            "text": response["text"],
+            "mentor_id": mentor_id,
+            "mentor_name": mentor.name,
+            "session_id": str(session.id),
+            "message_id": str(assistant_message.id),
+            "xp_earned": xp_earned,
+            "total_xp": student.total_xp,
+            "current_level": student.current_level,
+            "llm_provider": response.get("llm_provider"),
+            "tokens_used": response.get("tokens_used"),
+            "streak": streak_info,
+            "new_badges": new_badges,
         }
 
     def detect_subject(self, message: str) -> str:
@@ -180,29 +258,29 @@ class SupervisorService:
             return max(scores, key=scores.get)
 
         # Default to MATH if no matches
-        return 'MATH'
+        return "MATH"
 
     def _get_subject_for_mentor(self, mentor_id: str) -> str:
         """Get subject for a mentor ID"""
         reverse_map = {v: k for k, v in self.SUBJECT_TO_MENTOR.items()}
-        return reverse_map.get(mentor_id, 'MATH')
+        return reverse_map.get(mentor_id, "MATH")
 
     def _get_or_create_session(
-        self,
-        student_id: str,
-        session_id: Optional[str],
-        mentor_id: str,
-        subject: str
+        self, student_id: str, session_id: Optional[str], mentor_id: str, subject: str
     ) -> ConversationSession:
         """Get existing session or create new one"""
 
         if session_id:
             # Try to find existing session
-            session = self.db.query(ConversationSession).filter(
-                ConversationSession.id == session_id,
-                ConversationSession.student_id == student_id,
-                ConversationSession.is_active == True
-            ).first()
+            session = (
+                self.db.query(ConversationSession)
+                .filter(
+                    ConversationSession.id == session_id,
+                    ConversationSession.student_id == student_id,
+                    ConversationSession.is_active == True,
+                )
+                .first()
+            )
 
             if session:
                 return session
@@ -214,7 +292,7 @@ class SupervisorService:
             subject=subject,
             is_active=True,
             message_count=0,
-            total_xp_earned=0
+            total_xp_earned=0,
         )
         self.db.add(session)
         self.db.flush()  # Get the ID
@@ -233,33 +311,23 @@ class SupervisorService:
         """
         # Basic student context
         student_context = {
-            'id': str(student.id),
-            'grade': student.grade_level,
-            'age': student.age,
-            'h_pem_level': student.h_pem_level,
-            'total_xp': student.total_xp,
-            'current_level': student.current_level
+            "id": str(student.id),
+            "grade": student.grade_level,
+            "age": student.age,
+            "h_pem_level": student.h_pem_level,
+            "total_xp": student.total_xp,
+            "current_level": student.current_level,
         }
 
         # Enhanced curriculum context using CurriculumService
         curriculum_service = CurriculumService(self.db)
         curriculum_context = await curriculum_service.get_student_curriculum_context(
-            student_id=str(student.id),
-            subject=subject
+            student_id=str(student.id), subject=subject
         )
 
-        return {
-            'student': student_context,
-            'curriculum': curriculum_context,
-            'subject': subject
-        }
+        return {"student": student_context, "curriculum": curriculum_context, "subject": subject}
 
-    async def _award_xp(
-        self,
-        student: Student,
-        xp_amount: int,
-        session_id: uuid.UUID
-    ) -> int:
+    async def _award_xp(self, student: Student, xp_amount: int, session_id: uuid.UUID) -> int:
         """
         Award XP to student and update level
 
@@ -283,19 +351,15 @@ class SupervisorService:
         xp_log = StudentXPLog(
             student_id=student.id,
             xp_amount=xp_amount,
-            source='message',
-            description='Engaged with AI mentor',
-            session_id=session_id
+            source="message",
+            description="Engaged with AI mentor",
+            session_id=session_id,
         )
         self.db.add(xp_log)
 
         return xp_amount
 
-    async def get_student_sessions(
-        self,
-        student_id: str,
-        limit: int = 10
-    ) -> list:
+    async def get_student_sessions(self, student_id: str, limit: int = 10) -> list:
         """
         Get recent conversation sessions for student
 
@@ -306,30 +370,28 @@ class SupervisorService:
         Returns:
             List of session dictionaries
         """
-        sessions = self.db.query(ConversationSession).filter(
-            ConversationSession.student_id == student_id
-        ).order_by(
-            ConversationSession.start_time.desc()
-        ).limit(limit).all()
+        sessions = (
+            self.db.query(ConversationSession)
+            .filter(ConversationSession.student_id == student_id)
+            .order_by(ConversationSession.start_time.desc())
+            .limit(limit)
+            .all()
+        )
 
         return [
             {
-                'id': str(session.id),
-                'mentor_id': session.mentor_id,
-                'subject': session.subject,
-                'start_time': session.start_time.isoformat(),
-                'message_count': session.message_count,
-                'total_xp_earned': session.total_xp_earned,
-                'is_active': session.is_active
+                "id": str(session.id),
+                "mentor_id": session.mentor_id,
+                "subject": session.subject,
+                "start_time": session.start_time.isoformat(),
+                "message_count": session.message_count,
+                "total_xp_earned": session.total_xp_earned,
+                "is_active": session.is_active,
             }
             for session in sessions
         ]
 
-    async def get_session_messages(
-        self,
-        session_id: str,
-        student_id: str
-    ) -> list:
+    async def get_session_messages(self, session_id: str, student_id: str) -> list:
         """
         Get all messages in a conversation session
 
@@ -340,28 +402,32 @@ class SupervisorService:
         Returns:
             List of message dictionaries
         """
-        session = self.db.query(ConversationSession).filter(
-            ConversationSession.id == session_id,
-            ConversationSession.student_id == student_id
-        ).first()
+        session = (
+            self.db.query(ConversationSession)
+            .filter(
+                ConversationSession.id == session_id, ConversationSession.student_id == student_id
+            )
+            .first()
+        )
 
         if not session:
             raise ValueError("Session not found or access denied")
 
-        messages = self.db.query(Message).filter(
-            Message.session_id == session_id
-        ).order_by(
-            Message.timestamp.asc()
-        ).all()
+        messages = (
+            self.db.query(Message)
+            .filter(Message.session_id == session_id)
+            .order_by(Message.timestamp.asc())
+            .all()
+        )
 
         return [
             {
-                'id': str(msg.id),
-                'role': msg.role,
-                'content': msg.content,
-                'mentor_id': msg.mentor_id,
-                'timestamp': msg.timestamp.isoformat(),
-                'xp_earned': msg.xp_earned
+                "id": str(msg.id),
+                "role": msg.role,
+                "content": msg.content,
+                "mentor_id": msg.mentor_id,
+                "timestamp": msg.timestamp.isoformat(),
+                "xp_earned": msg.xp_earned,
             }
             for msg in messages
         ]

@@ -3,6 +3,7 @@ Stella - Mathematics Mentor
 
 Patient and encouraging math tutor who makes complex concepts accessible
 """
+
 from app.agents.base_agent import BaseAgent
 from app.llm.router import MultiLLMRouter
 from typing import Dict, Any
@@ -22,15 +23,15 @@ class StellaMentor(BaseAgent):
             agent_id="stella",
             name="Stella",
             subject="MATH",
-            personality="Patient and encouraging, uses step-by-step explanations with real-world analogies"
+            personality="Patient and encouraging, uses step-by-step explanations with real-world analogies",
         )
         self.llm_router = MultiLLMRouter()
 
     def build_system_prompt(self, context: Dict[str, Any]) -> str:
         """Build Stella's system prompt with student context"""
 
-        student = context.get('student', {})
-        curriculum = context.get('curriculum', {})
+        student = context.get("student", {})
+        curriculum = context.get("curriculum", {})
 
         prompt = f"""You are Stella, a patient and encouraging mathematics tutor.
 
@@ -43,10 +44,12 @@ STUDENT PROFILE:
 CURRENT LEARNING OBJECTIVES:
 """
 
-        objectives = curriculum.get('current_objectives', [])
+        objectives = curriculum.get("current_objectives", [])
         if objectives:
             for obj in objectives[:3]:  # Show top 3 objectives
-                prompt += f"- [{obj.get('objective_code', 'N/A')}] {obj.get('objective_text', 'N/A')}\n"
+                prompt += (
+                    f"- [{obj.get('objective_code', 'N/A')}] {obj.get('objective_text', 'N/A')}\n"
+                )
         else:
             prompt += "- General mathematics exploration\n"
 
@@ -88,20 +91,17 @@ Remember: Your goal is to build confidence and genuine understanding, not just p
         system_prompt = self.build_system_prompt(context)
 
         # Prepare context for LLM
-        llm_context = {
-            'system_prompt': system_prompt,
-            **context
-        }
+        llm_context = {"system_prompt": system_prompt, **context}
 
         # Route to LLM with hints
         llm_response = await self.llm_router.route_and_generate(
             prompt=message,
             context=llm_context,
             routing_hints={
-                'subject': self.subject,
-                'curriculum_aligned': True,
-                'complexity': 'medium'
-            }
+                "subject": self.subject,
+                "curriculum_aligned": True,
+                "complexity": "medium",
+            },
         )
 
         # Extract objective ID if relevant
@@ -109,15 +109,15 @@ Remember: Your goal is to build confidence and genuine understanding, not just p
 
         # Return formatted response
         return {
-            'text': llm_response['text'],
-            'mentor_id': self.agent_id,
-            'llm_provider': llm_response['provider'],
-            'model_name': llm_response['model'],
-            'tokens_used': llm_response['tokens_used'],
-            'objective_id': objective_id,
-            'metadata': {
-                **llm_response.get('metadata', {}),
-                'teaching_style': 'step_by_step',
-                'subject_area': 'mathematics'
-            }
+            "text": llm_response["text"],
+            "mentor_id": self.agent_id,
+            "llm_provider": llm_response["provider"],
+            "model_name": llm_response["model"],
+            "tokens_used": llm_response["tokens_used"],
+            "objective_id": objective_id,
+            "metadata": {
+                **llm_response.get("metadata", {}),
+                "teaching_style": "step_by_step",
+                "subject_area": "mathematics",
+            },
         }

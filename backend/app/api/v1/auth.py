@@ -1,6 +1,7 @@
 """
 Authentication API Endpoints
 """
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
@@ -16,17 +17,14 @@ from app.schemas.auth import (
     LoginResponse,
     Token,
     UserResponse,
-    MessageResponse
+    MessageResponse,
 )
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 
 @router.post("/register", response_model=RegisterResponse, status_code=status.HTTP_201_CREATED)
-async def register(
-    request: RegisterRequest,
-    db: Session = Depends(get_db)
-):
+async def register(request: RegisterRequest, db: Session = Depends(get_db)):
     """
     Register a new user account
 
@@ -41,10 +39,7 @@ async def register(
 
 
 @router.post("/login", response_model=LoginResponse)
-async def login(
-    request: LoginRequest,
-    db: Session = Depends(get_db)
-):
+async def login(request: LoginRequest, db: Session = Depends(get_db)):
     """
     Authenticate user and receive JWT access token
 
@@ -56,10 +51,7 @@ async def login(
 
 
 @router.post("/refresh", response_model=Token)
-async def refresh_token(
-    request: RefreshTokenRequest,
-    db: Session = Depends(get_db)
-):
+async def refresh_token(request: RefreshTokenRequest, db: Session = Depends(get_db)):
     """
     Get new access token using refresh token
 
@@ -73,8 +65,7 @@ async def refresh_token(
 
 @router.get("/me", response_model=UserResponse)
 async def get_current_user_info(
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    current_user: User = Depends(get_current_user), db: Session = Depends(get_db)
 ):
     """
     Get current authenticated user's profile information
@@ -88,7 +79,7 @@ async def get_current_user_info(
 async def change_password(
     request: PasswordChangeRequest,
     current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ):
     """
     Change password for authenticated user
@@ -97,7 +88,7 @@ async def change_password(
     result = await auth_service.change_password(
         user_id=current_user.id,
         current_password=request.current_password,
-        new_password=request.new_password
+        new_password=request.new_password,
     )
     return result
 
@@ -111,8 +102,7 @@ async def logout(current_user: User = Depends(get_current_user)):
     by removing the token. This endpoint is provided for API consistency.
     """
     return MessageResponse(
-        message="Logged out successfully",
-        detail="Please remove the token from client storage"
+        message="Logged out successfully", detail="Please remove the token from client storage"
     )
 
 
@@ -123,8 +113,4 @@ async def verify_token(current_user: User = Depends(get_current_user)):
 
     Returns 200 if valid, 401 if invalid
     """
-    return {
-        "valid": True,
-        "user_id": str(current_user.id),
-        "user_type": current_user.user_type
-    }
+    return {"valid": True, "user_id": str(current_user.id), "user_type": current_user.user_type}

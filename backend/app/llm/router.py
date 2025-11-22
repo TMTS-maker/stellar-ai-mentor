@@ -4,6 +4,7 @@ Multi-LLM Router
 Routes requests to different LLM providers (LucidAI, OpenAI, Anthropic)
 based on availability, cost, and performance requirements
 """
+
 from typing import Dict, Any, Optional
 from enum import Enum
 import httpx
@@ -12,6 +13,7 @@ from app.core.config import settings
 
 class LLMProvider(str, Enum):
     """Available LLM providers"""
+
     LUCIDAI = "lucidai"
     OPENAI = "openai"
     ANTHROPIC = "anthropic"
@@ -30,10 +32,7 @@ class MultiLLMRouter:
         self.temperature = settings.TEMPERATURE
 
     async def route_and_generate(
-        self,
-        prompt: str,
-        context: Dict[str, Any],
-        routing_hints: Optional[Dict[str, Any]] = None
+        self, prompt: str, context: Dict[str, Any], routing_hints: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         """
         Route request to appropriate LLM and generate response
@@ -55,7 +54,7 @@ class MultiLLMRouter:
         provider = self._select_provider(routing_hints)
 
         # Get system prompt from context
-        system_prompt = context.get('system_prompt', '')
+        system_prompt = context.get("system_prompt", "")
 
         # Generate response based on provider
         if provider == LLMProvider.LUCIDAI:
@@ -68,7 +67,7 @@ class MultiLLMRouter:
             # Fallback to simulated response for development
             response = await self._generate_fallback(prompt, system_prompt, context)
 
-        response['provider'] = provider.value
+        response["provider"] = provider.value
         return response
 
     def _select_provider(self, routing_hints: Optional[Dict[str, Any]] = None) -> LLMProvider:
@@ -89,14 +88,14 @@ class MultiLLMRouter:
         # 2. Simple queries -> Use LucidAI (cost-effective)
         # 3. Complex reasoning -> Use OpenAI GPT-4
 
-        if routing_hints.get('curriculum_aligned'):
+        if routing_hints.get("curriculum_aligned"):
             # For curriculum-aligned content, use Anthropic (best instruction following)
             if settings.ANTHROPIC_API_KEY:
                 return LLMProvider.ANTHROPIC
             elif settings.OPENAI_API_KEY:
                 return LLMProvider.OPENAI
 
-        if routing_hints.get('complexity', 'low') == 'high':
+        if routing_hints.get("complexity", "low") == "high":
             # For complex queries, prefer OpenAI GPT-4
             if settings.OPENAI_API_KEY:
                 return LLMProvider.OPENAI
@@ -108,10 +107,7 @@ class MultiLLMRouter:
         return LLMProvider(self.default_provider)
 
     async def _generate_lucidai(
-        self,
-        prompt: str,
-        system_prompt: str,
-        context: Dict[str, Any]
+        self, prompt: str, system_prompt: str, context: Dict[str, Any]
     ) -> Dict[str, Any]:
         """Generate response using LucidAI"""
         if not settings.LUCIDAI_API_KEY:
@@ -123,37 +119,34 @@ class MultiLLMRouter:
                     f"{settings.LUCIDAI_ENDPOINT}/chat/completions",
                     headers={
                         "Authorization": f"Bearer {settings.LUCIDAI_API_KEY}",
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
                     },
                     json={
                         "model": "lucidai-v1",
                         "messages": [
                             {"role": "system", "content": system_prompt},
-                            {"role": "user", "content": prompt}
+                            {"role": "user", "content": prompt},
                         ],
                         "max_tokens": self.max_tokens,
-                        "temperature": self.temperature
+                        "temperature": self.temperature,
                     },
-                    timeout=30.0
+                    timeout=30.0,
                 )
 
                 if response.status_code == 200:
                     data = response.json()
                     return {
-                        "text": data['choices'][0]['message']['content'],
+                        "text": data["choices"][0]["message"]["content"],
                         "model": "lucidai-v1",
-                        "tokens_used": data.get('usage', {}).get('total_tokens', 0),
-                        "metadata": {"finish_reason": data['choices'][0].get('finish_reason')}
+                        "tokens_used": data.get("usage", {}).get("total_tokens", 0),
+                        "metadata": {"finish_reason": data["choices"][0].get("finish_reason")},
                     }
         except Exception as e:
             print(f"LucidAI error: {e}")
             return await self._generate_fallback(prompt, system_prompt, context)
 
     async def _generate_openai(
-        self,
-        prompt: str,
-        system_prompt: str,
-        context: Dict[str, Any]
+        self, prompt: str, system_prompt: str, context: Dict[str, Any]
     ) -> Dict[str, Any]:
         """Generate response using OpenAI"""
         if not settings.OPENAI_API_KEY:
@@ -168,27 +161,24 @@ class MultiLLMRouter:
                 model="gpt-4-turbo-preview",
                 messages=[
                     {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": prompt}
+                    {"role": "user", "content": prompt},
                 ],
                 max_tokens=self.max_tokens,
-                temperature=self.temperature
+                temperature=self.temperature,
             )
 
             return {
                 "text": response.choices[0].message.content,
                 "model": response.model,
                 "tokens_used": response.usage.total_tokens if response.usage else 0,
-                "metadata": {"finish_reason": response.choices[0].finish_reason}
+                "metadata": {"finish_reason": response.choices[0].finish_reason},
             }
         except Exception as e:
             print(f"OpenAI error: {e}")
             return await self._generate_fallback(prompt, system_prompt, context)
 
     async def _generate_anthropic(
-        self,
-        prompt: str,
-        system_prompt: str,
-        context: Dict[str, Any]
+        self, prompt: str, system_prompt: str, context: Dict[str, Any]
     ) -> Dict[str, Any]:
         """Generate response using Anthropic Claude"""
         if not settings.ANTHROPIC_API_KEY:
@@ -204,33 +194,28 @@ class MultiLLMRouter:
                 max_tokens=self.max_tokens,
                 temperature=self.temperature,
                 system=system_prompt,
-                messages=[
-                    {"role": "user", "content": prompt}
-                ]
+                messages=[{"role": "user", "content": prompt}],
             )
 
             return {
                 "text": response.content[0].text,
                 "model": response.model,
                 "tokens_used": response.usage.input_tokens + response.usage.output_tokens,
-                "metadata": {"stop_reason": response.stop_reason}
+                "metadata": {"stop_reason": response.stop_reason},
             }
         except Exception as e:
             print(f"Anthropic error: {e}")
             return await self._generate_fallback(prompt, system_prompt, context)
 
     async def _generate_fallback(
-        self,
-        prompt: str,
-        system_prompt: str,
-        context: Dict[str, Any]
+        self, prompt: str, system_prompt: str, context: Dict[str, Any]
     ) -> Dict[str, Any]:
         """
         Fallback response for development/testing when APIs are unavailable
 
         Generates a simulated educational response
         """
-        student_name = context.get('student', {}).get('name', 'there')
+        student_name = context.get("student", {}).get("name", "there")
 
         fallback_response = f"""Hello {student_name}! I understand you're asking about: "{prompt[:50]}..."
 
@@ -251,5 +236,5 @@ How else can I help you today?"""
             "text": fallback_response,
             "model": "fallback-v1",
             "tokens_used": len(fallback_response.split()),
-            "metadata": {"mode": "development_fallback"}
+            "metadata": {"mode": "development_fallback"},
         }

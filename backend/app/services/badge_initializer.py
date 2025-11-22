@@ -3,6 +3,7 @@ Badge Initializer
 
 Creates default badge set for the Stellecta platform
 """
+
 from sqlalchemy.orm import Session
 from app.database.models.gamification import Badge
 import json
@@ -60,7 +61,6 @@ DEFAULT_BADGES = [
         "streak_required": None,
         "condition_json": json.dumps({"level": 50}),
     },
-
     # Streak Badges
     {
         "name": "Consistent",
@@ -102,7 +102,6 @@ DEFAULT_BADGES = [
         "streak_required": 100,
         "condition_json": None,
     },
-
     # XP Milestones
     {
         "name": "Novice",
@@ -171,9 +170,7 @@ def initialize_badges(db: Session) -> int:
 
     for badge_data in DEFAULT_BADGES:
         # Check if badge already exists
-        existing = db.query(Badge).filter(
-            Badge.name == badge_data["name"]
-        ).first()
+        existing = db.query(Badge).filter(Badge.name == badge_data["name"]).first()
 
         if existing:
             continue
