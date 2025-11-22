@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import StudentDashboard from "./pages/StudentDashboard";
+import StudentChatPage from "./pages/student/Chat";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import ParentDashboard from "./pages/ParentDashboard";
 import EnhancedParentDashboard from "./pages/EnhancedParentDashboard";
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
           <Route path="/student-dashboard" element={<StudentDashboard />} />
+          <Route path="/student/chat" element={<StudentChatPage />} />
           <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
           <Route path="/parent-dashboard" element={<EnhancedParentDashboard />} />
           <Route path="/lessons" element={<Lessons />} />

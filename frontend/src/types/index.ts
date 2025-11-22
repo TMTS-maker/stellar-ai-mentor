@@ -45,6 +45,13 @@ export interface LoginRequest {
   password: string;
 }
 
+export interface LoginResponse {
+  access_token: string;
+  refresh_token: string;
+  token_type: string;
+  user: UserResponse;
+}
+
 export interface RegisterRequest {
   email: string;
   password: string;
@@ -53,6 +60,31 @@ export interface RegisterRequest {
   schoolId?: string;
   gradeLevel?: number;
   age?: number;
+}
+
+export interface RegisterResponse {
+  message: string;
+  user_id: string;
+}
+
+export interface UserResponse {
+  id: string;
+  email: string;
+  full_name: string;
+  user_type: UserType;
+  is_active: boolean;
+  created_at: string;
+}
+
+export interface Token {
+  access_token: string;
+  refresh_token?: string;
+  token_type: string;
+}
+
+export interface PasswordChangeRequest {
+  old_password: string;
+  new_password: string;
 }
 
 // ============================================================================
@@ -101,11 +133,58 @@ export interface SendMessageRequest {
 
 export interface SendMessageResponse {
   text: string;
-  mentorId: MentorId;
-  llmProvider: string;
-  tokensUsed: number;
-  xpEarned: number;
-  objectiveId?: string;
+  mentor_id: string;
+  mentor_name: string;
+  session_id: string;
+  message_id: string;
+  xp_earned: number;
+  total_xp: number;
+  current_level: number;
+  llm_provider?: string;
+  tokens_used?: number;
+}
+
+export interface SessionResponse {
+  id: string;
+  mentor_id: string;
+  subject: string;
+  start_time: string;
+  message_count: number;
+  total_xp_earned: number;
+  is_active: boolean;
+}
+
+export interface SessionHistoryResponse {
+  sessions: SessionResponse[];
+  total_sessions: number;
+}
+
+export interface MessageResponse {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  mentor_id?: string;
+  timestamp: string;
+  xp_earned: number;
+}
+
+export interface SessionMessagesResponse {
+  session_id: string;
+  messages: MessageResponse[];
+  total_messages: number;
+}
+
+export interface MentorInfo {
+  agent_id: string;
+  name: string;
+  subject: string;
+  personality: string;
+  created_at: string;
+}
+
+export interface MentorListResponse {
+  mentors: MentorInfo[];
+  total_mentors: number;
 }
 
 // ============================================================================
