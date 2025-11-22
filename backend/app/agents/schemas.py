@@ -8,6 +8,56 @@ from pydantic import BaseModel, Field
 from enum import Enum
 
 
+# ==============================================================================
+# GRADE-TO-AGE MAPPING
+# ==============================================================================
+
+def grade_to_age(grade: int) -> int:
+    """
+    Map grade level (1-12) to typical age.
+
+    Standard US grade-to-age mapping:
+    - Grade 1: Age 6-7 (use 6)
+    - Grade 2: Age 7-8 (use 7)
+    - ...
+    - Grade 12: Age 17-18 (use 17)
+
+    Args:
+        grade: Grade level (1-12)
+
+    Returns:
+        Typical age for that grade
+    """
+    if not 1 <= grade <= 12:
+        raise ValueError(f"Grade must be between 1 and 12, got {grade}")
+
+    # Grade 1 starts at age 6
+    return grade + 5
+
+
+def age_to_grade_range(age: int) -> tuple:
+    """
+    Map age to typical grade range (since ages can span two grades).
+
+    Args:
+        age: Student's age
+
+    Returns:
+        Tuple of (min_grade, max_grade)
+    """
+    if age < 6:
+        return (1, 1)  # Pre-school/Kindergarten → treat as Grade 1
+    elif age >= 18:
+        return (12, 12)  # Post-high school → treat as Grade 12
+
+    # Age 6 could be K or G1, use G1 as minimum
+    # Age 7 could be G1 or G2, etc.
+    min_grade = max(1, age - 5)
+    max_grade = min(12, age - 4)
+
+    return (min_grade, max_grade)
+
+
 class TeachingStyle(str, Enum):
     """Teaching style approaches."""
     SOCRATIC = "socratic"
@@ -39,6 +89,8 @@ class MentorPersona(BaseModel):
     subjects: List[str] = Field(..., description="Subject areas of expertise")
     age_min: int = Field(..., description="Minimum recommended age")
     age_max: int = Field(..., description="Maximum recommended age")
+    grade_min: int = Field(..., description="Minimum recommended grade (1-12)")
+    grade_max: int = Field(..., description="Maximum recommended grade (1-12)")
 
     # Personality
     personality_traits: List[str] = Field(..., description="Key personality characteristics")
@@ -88,6 +140,7 @@ class StudentContext(BaseModel):
     Provides information about the student for differentiation and adaptation.
     """
     age: Optional[int] = Field(None, description="Student's age")
+    grade: Optional[int] = Field(None, description="Student's grade level (1-12)", ge=1, le=12)
     skill_level: Optional[str] = Field(None, description="Skill level (beginner/intermediate/advanced)")
     language: str = Field(default="English", description="Preferred communication language")
     current_subject: Optional[str] = Field(None, description="Current subject of study")
@@ -95,6 +148,17 @@ class StudentContext(BaseModel):
     history_summary: Optional[str] = Field(None, description="Summary of past interactions")
     active_goals: List[str] = Field(default_factory=list, description="Current learning goals")
     metadata: Dict[str, Any] = Field(default_factory=dict, description="Additional context")
+
+    def get_effective_age(self) -> Optional[int]:
+        """
+        Get the effective age for routing, preferring grade-based age if grade is provided.
+
+        Returns:
+            Age (uses grade-to-age mapping if grade is provided, otherwise raw age)
+        """
+        if self.grade is not None:
+            return grade_to_age(self.grade)
+        return self.age
 
 
 class ConversationMessage(BaseModel):

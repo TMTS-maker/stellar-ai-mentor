@@ -19,7 +19,7 @@ async def get_all_mentors():
     Get a list of all available mentors.
 
     Returns:
-        List of mentor information (id, name, subjects, age range, etc.)
+        List of mentor information (id, name, subjects, age/grade ranges, etc.)
     """
     mentors = list_mentors()
     return [
@@ -29,6 +29,7 @@ async def get_all_mentors():
             "emoji": mentor.emoji,
             "subjects": mentor.subjects,
             "age_range": f"{mentor.age_min}-{mentor.age_max}",
+            "grade_range": f"G{mentor.grade_min}-{mentor.grade_max}",
             "personality_traits": mentor.personality_traits,
             "voice_tone": mentor.voice_tone,
             "teaching_style": mentor.teaching_style.value,
@@ -67,6 +68,9 @@ async def get_mentor(mentor_id: str):
         "subjects": mentor.subjects,
         "age_min": mentor.age_min,
         "age_max": mentor.age_max,
+        "grade_min": mentor.grade_min,
+        "grade_max": mentor.grade_max,
+        "grade_range": f"G{mentor.grade_min}-{mentor.grade_max}",
         "personality_traits": mentor.personality_traits,
         "voice_tone": mentor.voice_tone,
         "teaching_style": mentor.teaching_style.value,

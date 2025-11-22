@@ -2,7 +2,7 @@
 Mentor Engine - Assembles prompts and orchestrates mentor conversations.
 
 This module handles:
-- Prompt template rendering with context
+- Prompt template rendering with context (including grade-specific adaptation)
 - Conversation history management
 - LLM routing and invocation
 - LVO phase detection and adaptation
@@ -16,6 +16,7 @@ from .schemas import (
     LVOPhase
 )
 from .personas import get_mentor_by_id
+from .config.mentor_grade_profiles import get_grade_band_for_grade
 from ..llm.router import get_llm_router
 from ..llm.providers.base import Message
 
@@ -62,7 +63,15 @@ class MentorEngine:
         context_parts = []
 
         if student_context:
-            if student_context.age:
+            # Grade takes priority over age for pedagogical adaptation
+            if student_context.grade:
+                grade_band = get_grade_band_for_grade(student_context.grade)
+                context_parts.append(f"Student grade: {student_context.grade} ({grade_band})")
+                # Also mention age if available for additional context
+                if student_context.age:
+                    context_parts.append(f"Student age: {student_context.age}")
+            elif student_context.age:
+                # Only age provided
                 context_parts.append(f"Student age: {student_context.age}")
 
             if student_context.skill_level:

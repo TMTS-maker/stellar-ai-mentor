@@ -39,16 +39,22 @@ Each mentor is a specialized pedagogical agent with:
 
 ### Mentor Roster
 
-| Mentor | Subject | Age Range | Teaching Style | Key Traits |
-|--------|---------|-----------|----------------|------------|
-| **Stella** 📐 | Mathematics | 12-18 | Socratic | Analytical, Patient, Encouraging |
-| **Max** ⚛️ | Physics | 14-18 | Exploratory | Curious, Experimental, Inspiring |
-| **Nova** 🧪 | Chemistry | 11-17 | Socratic | Energetic, Precise, Safety-conscious |
-| **Darwin** 🧬 | Biology | 10-17 | Exploratory | Observant, Nurturing, Holistic |
-| **Lexis** 📚 | English & Literature | 8-18 | Socratic | Articulate, Creative, Empathetic |
-| **Neo** 🤖 | AI & Technology | 13-18 | Project-Based | Forward-thinking, Analytical, Ethical |
-| **Luna** 🎨 | Arts & Music | 6-18 | Exploratory | Expressive, Playful, Inspiring |
-| **Atlas** 🗺️ | History & Geography | 9-17 | Socratic | Worldly, Storyteller, Culturally aware |
+| Mentor | Subject | Grade Range | Age Range | Teaching Style | Key Traits |
+|--------|---------|-------------|-----------|----------------|------------|
+| **Stella** 📐 | Mathematics | G1-12 | 6-18 | Socratic | Analytical, Patient, Encouraging |
+| **Max** ⚛️ | Physics | G5-12 | 10-18 | Exploratory | Curious, Experimental, Inspiring |
+| **Nova** 🧪 | Chemistry | G5-12 | 10-18 | Socratic | Energetic, Precise, Safety-conscious |
+| **Darwin** 🧬 | Biology | G3-12 | 8-18 | Exploratory | Observant, Nurturing, Holistic |
+| **Lexis** 📚 | English & Literature | G1-12 | 6-18 | Socratic | Articulate, Creative, Empathetic |
+| **Neo** 🤖 | AI & Technology | G5-12 | 10-18 | Project-Based | Forward-thinking, Analytical, Ethical |
+| **Luna** 🎨 | Arts & Music | G1-12 | 6-18 | Exploratory | Expressive, Playful, Inspiring |
+| **Atlas** 🗺️ | History & Geography | G3-12 | 8-18 | Socratic | Worldly, Storyteller, Culturally aware |
+
+**Grade Bands:**
+- **G1-2** (ages 6-7): Early Elementary
+- **G3-4** (ages 8-9): Upper Elementary
+- **G5-8** (ages 10-13): Middle School
+- **G9-12** (ages 14-17): High School
 
 ---
 
