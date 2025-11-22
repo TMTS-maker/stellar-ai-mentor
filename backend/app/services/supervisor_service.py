@@ -19,6 +19,7 @@ from app.database.models.conversation import ConversationSession, Message
 from app.database.models.gamification import StudentXPLog
 from app.agents.mentors import MENTOR_REGISTRY, get_mentor
 from app.core.config import settings
+from app.services.curriculum_service import CurriculumService
 
 
 class SupervisorService:
@@ -228,12 +229,12 @@ class SupervisorService:
             'current_level': student.current_level
         }
 
-        # Curriculum context (simplified for now - will be enhanced in Phase 5)
-        curriculum_context = {
-            'curriculum_id': str(student.curriculum_id) if student.curriculum_id else None,
-            'curriculum_name': 'General Curriculum',
-            'current_objectives': []  # Will be populated by CurriculumService in Phase 5
-        }
+        # Enhanced curriculum context using CurriculumService
+        curriculum_service = CurriculumService(self.db)
+        curriculum_context = await curriculum_service.get_student_curriculum_context(
+            student_id=str(student.id),
+            subject=subject
+        )
 
         return {
             'student': student_context,
