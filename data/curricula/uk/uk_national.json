@@ -1,0 +1,158 @@
+{
+  "name": "UK National Curriculum (England)",
+  "current_version": "2014",
+  "country_code": "GBR",
+  "description": "The national curriculum for state schools in England, setting out standards for what children should learn.",
+  "grade_bands": [
+    {
+      "name": "Key Stage 1",
+      "grade_min": 1,
+      "grade_max": 2,
+      "description": "Early foundational learning (Years 1-2, Ages 5-7)"
+    },
+    {
+      "name": "Key Stage 2",
+      "grade_min": 3,
+      "grade_max": 6,
+      "description": "Primary education (Years 3-6, Ages 7-11)"
+    },
+    {
+      "name": "Key Stage 3",
+      "grade_min": 7,
+      "grade_max": 9,
+      "description": "Lower secondary education (Years 7-9, Ages 11-14)"
+    },
+    {
+      "name": "Key Stage 4",
+      "grade_min": 10,
+      "grade_max": 11,
+      "description": "Upper secondary, GCSE preparation (Years 10-11, Ages 14-16)"
+    }
+  ],
+  "subjects": [
+    {
+      "code": "MATH",
+      "name": "Mathematics",
+      "grade_min": 1,
+      "grade_max": 11,
+      "description": "Mathematics National Curriculum",
+      "recommended_mentor_id": "stella"
+    },
+    {
+      "code": "ENGLISH",
+      "name": "English",
+      "grade_min": 1,
+      "grade_max": 11,
+      "description": "English language and literature",
+      "recommended_mentor_id": "lexis"
+    },
+    {
+      "code": "SCIENCE",
+      "name": "Science",
+      "grade_min": 1,
+      "grade_max": 11,
+      "description": "Science curriculum covering biology, chemistry, physics",
+      "recommended_mentor_id": "nova"
+    },
+    {
+      "code": "COMPUTING",
+      "name": "Computing",
+      "grade_min": 1,
+      "grade_max": 11,
+      "description": "Computer science and digital literacy",
+      "recommended_mentor_id": "neo"
+    },
+    {
+      "code": "HISTORY",
+      "name": "History",
+      "grade_min": 1,
+      "grade_max": 11,
+      "description": "British and world history",
+      "recommended_mentor_id": "atlas"
+    },
+    {
+      "code": "GEOGRAPHY",
+      "name": "Geography",
+      "grade_min": 1,
+      "grade_max": 11,
+      "description": "Physical and human geography",
+      "recommended_mentor_id": "atlas"
+    }
+  ],
+  "units": [
+    {
+      "subject_code": "MATH",
+      "code": "UK_NATIONAL.KS3.MATH.U01",
+      "name": "Number",
+      "sequence_number": 1,
+      "description": "Number operations, fractions, decimals, percentages",
+      "estimated_hours": 20
+    },
+    {
+      "subject_code": "MATH",
+      "code": "UK_NATIONAL.KS3.MATH.U02",
+      "name": "Algebra",
+      "sequence_number": 2,
+      "description": "Algebraic notation, equations, sequences",
+      "estimated_hours": 18
+    },
+    {
+      "subject_code": "SCIENCE",
+      "code": "UK_NATIONAL.KS3.SCI.U01",
+      "name": "Cells and Organisation",
+      "sequence_number": 1,
+      "description": "Cell structure, organisation, systems",
+      "estimated_hours": 12
+    }
+  ],
+  "topics": [
+    {
+      "unit_code": "UK_NATIONAL.KS3.MATH.U02",
+      "code": "UK_NATIONAL.KS3.MATH.U02.T01",
+      "name": "Algebraic Expressions",
+      "sequence_number": 1,
+      "description": "Simplifying, expanding, factorising expressions",
+      "difficulty_level": "intermediate",
+      "prerequisite_topic_ids": []
+    },
+    {
+      "unit_code": "UK_NATIONAL.KS3.MATH.U02",
+      "code": "UK_NATIONAL.KS3.MATH.U02.T02",
+      "name": "Solving Equations",
+      "sequence_number": 2,
+      "description": "Linear equations, solving for unknowns",
+      "difficulty_level": "intermediate",
+      "prerequisite_topic_ids": []
+    }
+  ],
+  "learning_objectives": [
+    {
+      "topic_code": "UK_NATIONAL.KS3.MATH.U02.T01",
+      "code": "UK_NATIONAL.KS3.MATH.U02.T01.LO001",
+      "description": "Use algebraic notation to represent mathematical relationships",
+      "cognitive_level": "understand",
+      "lvo_phase_emphasis": "learn"
+    },
+    {
+      "topic_code": "UK_NATIONAL.KS3.MATH.U02.T01",
+      "code": "UK_NATIONAL.KS3.MATH.U02.T01.LO002",
+      "description": "Simplify algebraic expressions by collecting like terms",
+      "cognitive_level": "apply",
+      "lvo_phase_emphasis": "verify"
+    },
+    {
+      "topic_code": "UK_NATIONAL.KS3.MATH.U02.T02",
+      "code": "UK_NATIONAL.KS3.MATH.U02.T02.LO001",
+      "description": "Solve simple linear equations in one variable",
+      "cognitive_level": "apply",
+      "lvo_phase_emphasis": "verify"
+    },
+    {
+      "topic_code": "UK_NATIONAL.KS3.MATH.U02.T02",
+      "code": "UK_NATIONAL.KS3.MATH.U02.T02.LO002",
+      "description": "Formulate and solve equations to solve problems",
+      "cognitive_level": "create",
+      "lvo_phase_emphasis": "own"
+    }
+  ]
+}

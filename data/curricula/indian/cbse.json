@@ -1,0 +1,295 @@
+{
+  "name": "Central Board of Secondary Education (CBSE)",
+  "current_version": "2023-24",
+  "country_code": "IND",
+  "description": "CBSE is a national level board of education in India under the Union Government of India.",
+  "grade_bands": [
+    {
+      "name": "Primary",
+      "grade_min": 1,
+      "grade_max": 5,
+      "description": "Foundational stage focusing on basic literacy, numeracy, and play-based learning"
+    },
+    {
+      "name": "Upper Primary",
+      "grade_min": 6,
+      "grade_max": 8,
+      "description": "Middle school stage with subject-specific learning"
+    },
+    {
+      "name": "Secondary",
+      "grade_min": 9,
+      "grade_max": 10,
+      "description": "Secondary stage culminating in board examinations"
+    },
+    {
+      "name": "Senior Secondary",
+      "grade_min": 11,
+      "grade_max": 12,
+      "description": "Higher secondary stage with stream specialization (Science/Commerce/Arts)"
+    }
+  ],
+  "subjects": [
+    {
+      "code": "MATH",
+      "name": "Mathematics",
+      "grade_min": 1,
+      "grade_max": 12,
+      "description": "Mathematics curriculum covering algebra, geometry, calculus, statistics",
+      "recommended_mentor_id": "stella"
+    },
+    {
+      "code": "SCIENCE",
+      "name": "Science",
+      "grade_min": 1,
+      "grade_max": 10,
+      "description": "Integrated science covering physics, chemistry, biology",
+      "recommended_mentor_id": "nova"
+    },
+    {
+      "code": "PHYSICS",
+      "name": "Physics",
+      "grade_min": 11,
+      "grade_max": 12,
+      "description": "Advanced physics for senior secondary",
+      "recommended_mentor_id": "max"
+    },
+    {
+      "code": "CHEMISTRY",
+      "name": "Chemistry",
+      "grade_min": 11,
+      "grade_max": 12,
+      "description": "Advanced chemistry for senior secondary",
+      "recommended_mentor_id": "nova"
+    },
+    {
+      "code": "BIOLOGY",
+      "name": "Biology",
+      "grade_min": 11,
+      "grade_max": 12,
+      "description": "Advanced biology for senior secondary",
+      "recommended_mentor_id": "darwin"
+    },
+    {
+      "code": "ENGLISH",
+      "name": "English",
+      "grade_min": 1,
+      "grade_max": 12,
+      "description": "English language and literature",
+      "recommended_mentor_id": "lexis"
+    },
+    {
+      "code": "SOCIAL_SCIENCE",
+      "name": "Social Science",
+      "grade_min": 6,
+      "grade_max": 10,
+      "description": "History, geography, political science, economics",
+      "recommended_mentor_id": "atlas"
+    },
+    {
+      "code": "COMPUTER_SCIENCE",
+      "name": "Computer Science",
+      "grade_min": 9,
+      "grade_max": 12,
+      "description": "Programming, data structures, algorithms",
+      "recommended_mentor_id": "neo"
+    }
+  ],
+  "units": [
+    {
+      "subject_code": "MATH",
+      "code": "CBSE.G9.MATH.U01",
+      "name": "Number Systems",
+      "sequence_number": 1,
+      "description": "Real numbers, rational and irrational numbers",
+      "estimated_hours": 15
+    },
+    {
+      "subject_code": "MATH",
+      "code": "CBSE.G9.MATH.U02",
+      "name": "Polynomials",
+      "sequence_number": 2,
+      "description": "Polynomials in one variable, factorization, algebraic identities",
+      "estimated_hours": 12
+    },
+    {
+      "subject_code": "MATH",
+      "code": "CBSE.G9.MATH.U03",
+      "name": "Linear Equations in Two Variables",
+      "sequence_number": 3,
+      "description": "Solutions of linear equations, graphical methods",
+      "estimated_hours": 14
+    },
+    {
+      "subject_code": "MATH",
+      "code": "CBSE.G9.MATH.U04",
+      "name": "Coordinate Geometry",
+      "sequence_number": 4,
+      "description": "Cartesian plane, plotting points, distance formula",
+      "estimated_hours": 10
+    },
+    {
+      "subject_code": "MATH",
+      "code": "CBSE.G9.MATH.U05",
+      "name": "Euclid's Geometry",
+      "sequence_number": 5,
+      "description": "Euclid's definitions, axioms, postulates",
+      "estimated_hours": 8
+    },
+    {
+      "subject_code": "SCIENCE",
+      "code": "CBSE.G9.SCI.U01",
+      "name": "Matter in Our Surroundings",
+      "sequence_number": 1,
+      "description": "States of matter, properties, changes of state",
+      "estimated_hours": 12
+    }
+  ],
+  "topics": [
+    {
+      "unit_code": "CBSE.G9.MATH.U02",
+      "code": "CBSE.G9.MATH.U02.T01",
+      "name": "Introduction to Polynomials",
+      "sequence_number": 1,
+      "description": "Definition, degree, types of polynomials",
+      "difficulty_level": "foundational",
+      "prerequisite_topic_ids": []
+    },
+    {
+      "unit_code": "CBSE.G9.MATH.U02",
+      "code": "CBSE.G9.MATH.U02.T02",
+      "name": "Polynomial Operations",
+      "sequence_number": 2,
+      "description": "Addition, subtraction, multiplication of polynomials",
+      "difficulty_level": "intermediate",
+      "prerequisite_topic_ids": []
+    },
+    {
+      "unit_code": "CBSE.G9.MATH.U02",
+      "code": "CBSE.G9.MATH.U02.T03",
+      "name": "Factorization of Polynomials",
+      "sequence_number": 3,
+      "description": "Factor theorem, algebraic identities, factorization methods",
+      "difficulty_level": "advanced",
+      "prerequisite_topic_ids": []
+    },
+    {
+      "unit_code": "CBSE.G9.MATH.U03",
+      "code": "CBSE.G9.MATH.U03.T01",
+      "name": "Linear Equations - Basic Concepts",
+      "sequence_number": 1,
+      "description": "Understanding linear equations in two variables",
+      "difficulty_level": "foundational",
+      "prerequisite_topic_ids": []
+    },
+    {
+      "unit_code": "CBSE.G9.MATH.U03",
+      "code": "CBSE.G9.MATH.U03.T02",
+      "name": "Graphical Solution of Linear Equations",
+      "sequence_number": 2,
+      "description": "Plotting linear equations, finding solutions graphically",
+      "difficulty_level": "intermediate",
+      "prerequisite_topic_ids": []
+    }
+  ],
+  "learning_objectives": [
+    {
+      "topic_code": "CBSE.G9.MATH.U02.T01",
+      "code": "CBSE.G9.MATH.U02.T01.LO001",
+      "description": "Define polynomials and identify the degree of a polynomial",
+      "cognitive_level": "remember",
+      "lvo_phase_emphasis": "learn"
+    },
+    {
+      "topic_code": "CBSE.G9.MATH.U02.T01",
+      "code": "CBSE.G9.MATH.U02.T01.LO002",
+      "description": "Classify polynomials based on number of terms (monomial, binomial, trinomial)",
+      "cognitive_level": "understand",
+      "lvo_phase_emphasis": "learn"
+    },
+    {
+      "topic_code": "CBSE.G9.MATH.U02.T01",
+      "code": "CBSE.G9.MATH.U02.T01.LO003",
+      "description": "Write polynomials in standard form",
+      "cognitive_level": "apply",
+      "lvo_phase_emphasis": "verify"
+    },
+    {
+      "topic_code": "CBSE.G9.MATH.U02.T02",
+      "code": "CBSE.G9.MATH.U02.T02.LO001",
+      "description": "Add and subtract polynomials",
+      "cognitive_level": "apply",
+      "lvo_phase_emphasis": "verify"
+    },
+    {
+      "topic_code": "CBSE.G9.MATH.U02.T02",
+      "code": "CBSE.G9.MATH.U02.T02.LO002",
+      "description": "Multiply two polynomials",
+      "cognitive_level": "apply",
+      "lvo_phase_emphasis": "verify"
+    },
+    {
+      "topic_code": "CBSE.G9.MATH.U02.T02",
+      "code": "CBSE.G9.MATH.U02.T02.LO003",
+      "description": "Solve problems involving polynomial operations in real-world contexts",
+      "cognitive_level": "analyze",
+      "lvo_phase_emphasis": "own"
+    },
+    {
+      "topic_code": "CBSE.G9.MATH.U02.T03",
+      "code": "CBSE.G9.MATH.U02.T03.LO001",
+      "description": "Apply the factor theorem to factorize polynomials",
+      "cognitive_level": "apply",
+      "lvo_phase_emphasis": "verify"
+    },
+    {
+      "topic_code": "CBSE.G9.MATH.U02.T03",
+      "code": "CBSE.G9.MATH.U02.T03.LO002",
+      "description": "Use algebraic identities (a+b)², (a-b)², (a²-b²) for factorization",
+      "cognitive_level": "apply",
+      "lvo_phase_emphasis": "verify"
+    },
+    {
+      "topic_code": "CBSE.G9.MATH.U02.T03",
+      "code": "CBSE.G9.MATH.U02.T03.LO003",
+      "description": "Create and solve polynomial equations to model real-world problems",
+      "cognitive_level": "create",
+      "lvo_phase_emphasis": "own"
+    },
+    {
+      "topic_code": "CBSE.G9.MATH.U03.T01",
+      "code": "CBSE.G9.MATH.U03.T01.LO001",
+      "description": "Understand what constitutes a linear equation in two variables",
+      "cognitive_level": "understand",
+      "lvo_phase_emphasis": "learn"
+    },
+    {
+      "topic_code": "CBSE.G9.MATH.U03.T01",
+      "code": "CBSE.G9.MATH.U03.T01.LO002",
+      "description": "Determine if a given pair of values is a solution to a linear equation",
+      "cognitive_level": "apply",
+      "lvo_phase_emphasis": "verify"
+    },
+    {
+      "topic_code": "CBSE.G9.MATH.U03.T02",
+      "code": "CBSE.G9.MATH.U03.T02.LO001",
+      "description": "Plot linear equations on a coordinate plane",
+      "cognitive_level": "apply",
+      "lvo_phase_emphasis": "verify"
+    },
+    {
+      "topic_code": "CBSE.G9.MATH.U03.T02",
+      "code": "CBSE.G9.MATH.U03.T02.LO002",
+      "description": "Find the solution of a system of linear equations graphically",
+      "cognitive_level": "analyze",
+      "lvo_phase_emphasis": "verify"
+    },
+    {
+      "topic_code": "CBSE.G9.MATH.U03.T02",
+      "code": "CBSE.G9.MATH.U03.T02.LO003",
+      "description": "Formulate and solve linear equations to represent real-life situations",
+      "cognitive_level": "create",
+      "lvo_phase_emphasis": "own"
+    }
+  ]
+}

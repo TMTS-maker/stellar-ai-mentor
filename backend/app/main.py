@@ -8,6 +8,8 @@ Gold-standard pedagogical AI mentoring platform with:
 - LVO (Learn-Verify-Own) pedagogical framework
 - H-PEM (History-Practice-Evaluation-Metacognition) integration
 - Gamification (XP, achievements, levels)
+- Curriculum integration (Indian/UK/US curricula)
+- LCT (Learning Competency Trajectories) tracking
 
 See docs/agent-instruction-design.md for the pedagogical framework.
 """
@@ -15,6 +17,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .config import settings
 from .api.chat import router as chat_router
+from .api.curriculum import router as curriculum_router
 
 # Create FastAPI app
 app = FastAPI(
@@ -39,6 +42,7 @@ app.add_middleware(
 
 # Include routers
 app.include_router(chat_router)
+app.include_router(curriculum_router)
 
 
 @app.get("/")
@@ -57,10 +61,20 @@ async def root():
             "multi_language": "Prepared (English default)"
         },
         "endpoints": {
-            "get_mentors": "/api/chat/mentors",
-            "get_mentor_details": "/api/chat/mentors/{mentor_id}",
-            "send_message": "/api/chat/message",
-            "send_to_mentor": "/api/chat/message/{mentor_id}"
+            "chat": {
+                "get_mentors": "/api/chat/mentors",
+                "get_mentor_details": "/api/chat/mentors/{mentor_id}",
+                "send_message": "/api/chat/message",
+                "send_to_mentor": "/api/chat/message/{mentor_id}"
+            },
+            "curriculum": {
+                "list_curricula": "/api/curriculum/curricula",
+                "ingest_curriculum": "/api/curriculum/ingest",
+                "student_trajectory": "/api/curriculum/student/{student_id}/trajectory",
+                "student_competency": "/api/curriculum/student/{student_id}/competency",
+                "recommendations": "/api/curriculum/student/{student_id}/recommendations",
+                "learning_gaps": "/api/curriculum/student/{student_id}/gaps"
+            }
         }
     }
 

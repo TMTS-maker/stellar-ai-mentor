@@ -1,0 +1,151 @@
+{
+  "name": "Common Core State Standards",
+  "current_version": "2010",
+  "country_code": "USA",
+  "description": "National education standards for Mathematics and English Language Arts in the United States.",
+  "grade_bands": [
+    {
+      "name": "Elementary School",
+      "grade_min": 1,
+      "grade_max": 5,
+      "description": "Elementary education (Grades K-5, Ages 5-11)"
+    },
+    {
+      "name": "Middle School",
+      "grade_min": 6,
+      "grade_max": 8,
+      "description": "Middle school education (Grades 6-8, Ages 11-14)"
+    },
+    {
+      "name": "High School",
+      "grade_min": 9,
+      "grade_max": 12,
+      "description": "High school education (Grades 9-12, Ages 14-18)"
+    }
+  ],
+  "subjects": [
+    {
+      "code": "MATH",
+      "name": "Mathematics",
+      "grade_min": 1,
+      "grade_max": 12,
+      "description": "Common Core Mathematics Standards",
+      "recommended_mentor_id": "stella"
+    },
+    {
+      "code": "LANGUAGE_ARTS",
+      "name": "English Language Arts",
+      "grade_min": 1,
+      "grade_max": 12,
+      "description": "Common Core ELA Standards",
+      "recommended_mentor_id": "lexis"
+    }
+  ],
+  "units": [
+    {
+      "subject_code": "MATH",
+      "code": "COMMON_CORE.G8.MATH.U01",
+      "name": "Expressions and Equations",
+      "sequence_number": 1,
+      "description": "Work with radicals and integer exponents, understand linear equations",
+      "estimated_hours": 25
+    },
+    {
+      "subject_code": "MATH",
+      "code": "COMMON_CORE.G8.MATH.U02",
+      "name": "Functions",
+      "sequence_number": 2,
+      "description": "Define, evaluate, and compare functions",
+      "estimated_hours": 20
+    },
+    {
+      "subject_code": "MATH",
+      "code": "COMMON_CORE.G8.MATH.U03",
+      "name": "Geometry",
+      "sequence_number": 3,
+      "description": "Understand congruence and similarity, apply Pythagorean theorem",
+      "estimated_hours": 18
+    },
+    {
+      "subject_code": "LANGUAGE_ARTS",
+      "code": "COMMON_CORE.G8.ELA.U01",
+      "name": "Reading Literature",
+      "sequence_number": 1,
+      "description": "Key ideas and details, craft and structure, integration of knowledge",
+      "estimated_hours": 30
+    }
+  ],
+  "topics": [
+    {
+      "unit_code": "COMMON_CORE.G8.MATH.U01",
+      "code": "COMMON_CORE.G8.MATH.U01.T01",
+      "name": "Integer Exponents",
+      "sequence_number": 1,
+      "description": "Properties of integer exponents",
+      "difficulty_level": "intermediate",
+      "prerequisite_topic_ids": []
+    },
+    {
+      "unit_code": "COMMON_CORE.G8.MATH.U01",
+      "code": "COMMON_CORE.G8.MATH.U01.T02",
+      "name": "Linear Equations",
+      "sequence_number": 2,
+      "description": "Solving linear equations in one variable",
+      "difficulty_level": "intermediate",
+      "prerequisite_topic_ids": []
+    },
+    {
+      "unit_code": "COMMON_CORE.G8.MATH.U02",
+      "code": "COMMON_CORE.G8.MATH.U02.T01",
+      "name": "Understanding Functions",
+      "sequence_number": 1,
+      "description": "Define and evaluate functions, function notation",
+      "difficulty_level": "intermediate",
+      "prerequisite_topic_ids": []
+    }
+  ],
+  "learning_objectives": [
+    {
+      "topic_code": "COMMON_CORE.G8.MATH.U01.T01",
+      "code": "CCSS.MATH.CONTENT.8.EE.A.1",
+      "description": "Know and apply the properties of integer exponents to generate equivalent numerical expressions",
+      "cognitive_level": "apply",
+      "lvo_phase_emphasis": "verify"
+    },
+    {
+      "topic_code": "COMMON_CORE.G8.MATH.U01.T02",
+      "code": "CCSS.MATH.CONTENT.8.EE.C.7",
+      "description": "Solve linear equations in one variable",
+      "cognitive_level": "apply",
+      "lvo_phase_emphasis": "verify"
+    },
+    {
+      "topic_code": "COMMON_CORE.G8.MATH.U01.T02",
+      "code": "CCSS.MATH.CONTENT.8.EE.C.7.A",
+      "description": "Give examples of linear equations in one variable with one solution, infinitely many solutions, or no solutions",
+      "cognitive_level": "analyze",
+      "lvo_phase_emphasis": "own"
+    },
+    {
+      "topic_code": "COMMON_CORE.G8.MATH.U02.T01",
+      "code": "CCSS.MATH.CONTENT.8.F.A.1",
+      "description": "Understand that a function is a rule that assigns to each input exactly one output",
+      "cognitive_level": "understand",
+      "lvo_phase_emphasis": "learn"
+    },
+    {
+      "topic_code": "COMMON_CORE.G8.MATH.U02.T01",
+      "code": "CCSS.MATH.CONTENT.8.F.A.2",
+      "description": "Compare properties of two functions each represented in a different way (algebraically, graphically, numerically)",
+      "cognitive_level": "analyze",
+      "lvo_phase_emphasis": "verify"
+    },
+    {
+      "topic_code": "COMMON_CORE.G8.MATH.U02.T01",
+      "code": "CCSS.MATH.CONTENT.8.F.A.3",
+      "description": "Interpret the equation y = mx + b as defining a linear function",
+      "cognitive_level": "understand",
+      "lvo_phase_emphasis": "learn"
+    }
+  ]
+}

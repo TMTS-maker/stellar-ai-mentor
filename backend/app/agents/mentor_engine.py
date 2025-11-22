@@ -6,6 +6,7 @@ This module handles:
 - Conversation history management
 - LLM routing and invocation
 - LVO phase detection and adaptation
+- Curriculum context injection
 """
 from typing import List, Optional, Dict, Any
 from .schemas import (
@@ -34,7 +35,8 @@ class MentorEngine:
     def build_system_prompt(
         self,
         mentor: MentorPersona,
-        student_context: Optional[StudentContext] = None
+        student_context: Optional[StudentContext] = None,
+        curriculum_context: Optional[str] = None
     ) -> str:
         """
         Build the complete system prompt for a mentor.
@@ -43,11 +45,13 @@ class MentorEngine:
         - Age range
         - Subjects
         - Student context (age, skill level, LVO phase, history)
+        - Curriculum context (student's curriculum, learning objectives, trajectory)
         - Language preference
 
         Args:
             mentor: The mentor persona
             student_context: Student information for personalization
+            curriculum_context: Optional curriculum and LCT context string
 
         Returns:
             Fully rendered system prompt
@@ -89,6 +93,11 @@ class MentorEngine:
 
             if student_context.language and student_context.language != "English":
                 context_parts.append(f"Preferred language: {student_context.language}")
+
+        # Add curriculum context if provided
+        if curriculum_context:
+            context_parts.append("\n=== CURRICULUM & LEARNING TRAJECTORY ===")
+            context_parts.append(curriculum_context)
 
         # Combine context
         context_string = "\n".join(context_parts) if context_parts else "First interaction with this student."
@@ -134,6 +143,7 @@ class MentorEngine:
         message: str,
         student_context: Optional[StudentContext] = None,
         conversation_history: Optional[List[ConversationMessage]] = None,
+        curriculum_context: Optional[str] = None,
         provider: Optional[str] = None,
         temperature: float = 0.7
     ) -> ChatResponse:
@@ -145,6 +155,7 @@ class MentorEngine:
             message: User's message
             student_context: Student context for personalization
             conversation_history: Previous messages
+            curriculum_context: Optional curriculum and LCT context
             provider: LLM provider override
             temperature: LLM temperature
 
@@ -160,7 +171,7 @@ class MentorEngine:
             raise ValueError(f"Mentor '{mentor_id}' not found")
 
         # Build system prompt
-        system_prompt = self.build_system_prompt(mentor, student_context)
+        system_prompt = self.build_system_prompt(mentor, student_context, curriculum_context)
 
         # Assemble messages
         messages = self.assemble_messages(
