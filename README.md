@@ -1,73 +1,252 @@
-# Welcome to your Lovable project
+# Stellecta - AI-Powered Educational Platform
 
-## Project info
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![React 18](https://img.shields.io/badge/react-18-blue.svg)](https://reactjs.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-green.svg)](https://fastapi.tiangolo.com/)
 
-**URL**: https://lovable.dev/projects/d9196343-786d-4aa4-b798-bf23001f0ff6
+Stellecta is an advanced AI-powered educational platform featuring 8 specialized mentor agents, multi-curriculum support, and blockchain-based credential verification.
 
-## How can I edit this code?
+## 🌟 Features
 
-There are several ways of editing your application.
+### 🤖 8 AI Mentor Agents
+- **Stella** - Mathematics Tutor
+- **Max** - Physics & Engineering Guide
+- **Nova** - Chemistry Expert
+- **Darwin** - Biology Specialist
+- **Lexis** - Language & Literature Mentor
+- **Neo** - Technology & Computer Science
+- **Luna** - Arts & Creativity Coach
+- **Atlas** - History & Social Studies
 
-**Use Lovable**
+### 📚 Multi-Curriculum Support
+- **Indian Curricula**: CBSE, ICSE
+- **UK Curricula**: National Curriculum, IGCSE
+- **US Curricula**: Common Core
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d9196343-786d-4aa4-b798-bf23001f0ff6) and start prompting.
+### 🎮 Gamification System
+- XP & Leveling System
+- Badges & Achievements
+- Daily Streaks
+- Global Leaderboards
 
-Changes made via Lovable will be committed automatically to this repo.
+### 🔗 Blockchain Integration
+- H-PEM Credentials on Stellar Network
+- Verifiable Learning Achievements
+- Decentralized Credential Storage
 
-**Use your preferred IDE**
+### 🧠 Multi-LLM Router
+- LucidAI Internal Models
+- OpenAI GPT-4
+- Anthropic Claude 3
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🏗️ Architecture
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Technology Stack
 
-Follow these steps:
+**Backend:**
+- FastAPI 0.104+
+- Python 3.11+
+- PostgreSQL 15+
+- SQLAlchemy 2.0+
+- Redis 7.0+
+- Celery 5.3+
+- Stellar SDK
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+**Frontend:**
+- React 18+
+- TypeScript 5+
+- Vite 5+
+- Zustand (State Management)
+- Tailwind CSS + shadcn/ui
+- Axios
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+**DevOps:**
+- Docker & Docker Compose
+- Railway (Hosting)
+- GitHub Actions (CI/CD)
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 🚀 Quick Start
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### Prerequisites
+
+- Docker Desktop installed
+- Node.js 20+ (for local frontend development)
+- Python 3.11+ (for local backend development)
+- Git
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/stellecta/backend-unified-lucidai.git
+cd backend-unified-lucidai
+```
+
+2. **Set up environment variables**
+```bash
+# Backend
+cp backend/.env.example backend/.env
+# Edit backend/.env with your API keys
+
+# Frontend
+cp frontend/.env.example frontend/.env
+# Edit frontend/.env if needed
+```
+
+3. **Start with Docker Compose**
+```bash
+docker-compose up -d
+```
+
+4. **Access the application**
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:8000
+- API Docs: http://localhost:8000/docs
+
+### Development Setup
+
+**Backend Development:**
+```bash
+cd backend
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run database migrations
+alembic upgrade head
+
+# Start development server
+uvicorn app.main:app --reload
+```
+
+**Frontend Development:**
+```bash
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## 📖 Documentation
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### API Documentation
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
 
-**Use GitHub Codespaces**
+### Project Structure
+```
+stellecta/
+├── backend/
+│   ├── app/
+│   │   ├── agents/          # 8 Mentor Agents
+│   │   ├── api/             # API Endpoints
+│   │   ├── core/            # Configuration
+│   │   ├── database/        # Models & Database
+│   │   ├── llm/             # Multi-LLM Router
+│   │   ├── curriculum/      # Curriculum Providers
+│   │   ├── blockchain/      # Stellar Integration
+│   │   └── services/        # Business Logic
+│   ├── tests/               # Backend Tests
+│   └── alembic/             # Database Migrations
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/      # React Components
+│   │   ├── pages/           # Page Components
+│   │   ├── stores/          # Zustand Stores
+│   │   ├── services/        # API Services
+│   │   └── types/           # TypeScript Types
+│   └── tests/               # Frontend Tests
+│
+├── docs/                    # Documentation
+├── scripts/                 # Utility Scripts
+└── docker-compose.yml       # Docker Configuration
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🧪 Testing
 
-## What technologies are used for this project?
+**Backend Tests:**
+```bash
+cd backend
+pytest --cov=app --cov-report=html
+# Target: 80% coverage
+```
 
-This project is built with:
+**Frontend Tests:**
+```bash
+cd frontend
+npm run test
+npm run test:coverage
+# Target: 70% coverage
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 🚢 Deployment
 
-## How can I deploy this project?
+### Railway Deployment
 
-Simply open [Lovable](https://lovable.dev/projects/d9196343-786d-4aa4-b798-bf23001f0ff6) and click on Share -> Publish.
+1. **Install Railway CLI**
+```bash
+npm install -g @railway/cli
+```
 
-## Can I connect a custom domain to my Lovable project?
+2. **Login to Railway**
+```bash
+railway login
+```
 
-Yes, you can!
+3. **Deploy**
+```bash
+railway up
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Manual Deployment
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+1. **Build Docker images**
+```bash
+docker-compose -f docker-compose.prod.yml build
+```
+
+2. **Deploy to your infrastructure**
+```bash
+docker-compose -f docker-compose.prod.yml up -d
+```
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Built with ❤️ by the Stellecta Team
+- Powered by LucidAI, OpenAI, and Anthropic
+- Blockchain infrastructure by Stellar
+
+## 📧 Contact
+
+- Website: https://stellecta.com
+- Email: support@stellecta.com
+- GitHub: https://github.com/stellecta
+
+---
+
+**Version:** 1.0.0
+**Status:** In Active Development
+**Last Updated:** November 2025

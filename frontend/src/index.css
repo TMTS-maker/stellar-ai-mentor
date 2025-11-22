@@ -1,0 +1,208 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Stellar AI Brand Colors */
+    --background: 0 0% 100%;
+    --foreground: 222.2 47% 11%;
+    
+    --stellar-purple: 262 83% 58%;
+    --cosmic-blue: 239 84% 60%;
+    --nebula-pink: 330 81% 60%;
+    --stellar-cyan: 188 94% 43%;
+    
+    --space-black: 222 47% 11%;
+    --slate-gray: 215 16% 47%;
+    --cloud-white: 0 0% 100%;
+    --mist: 210 40% 98%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47% 11%;
+
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 98%;
+    --secondary-foreground: 222.2 47% 11%;
+
+    --muted: 210 40% 98%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 239 84% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 262 83% 58%;
+
+    --radius: 1.5rem;
+
+    /* Agent Gradients */
+    --gradient-stellar: linear-gradient(135deg, hsl(239, 84%, 60%), hsl(262, 83%, 58%), hsl(330, 81%, 60%));
+    --gradient-stella: linear-gradient(135deg, hsl(239, 84%, 67%), hsl(262, 83%, 65%), hsl(330, 81%, 67%));
+    --gradient-max: linear-gradient(135deg, hsl(210, 100%, 56%), hsl(188, 94%, 43%), hsl(174, 72%, 56%));
+    --gradient-nova: linear-gradient(135deg, hsl(25, 95%, 63%), hsl(0, 84%, 60%), hsl(330, 81%, 67%));
+    --gradient-darwin: linear-gradient(135deg, hsl(142, 76%, 36%), hsl(160, 84%, 39%), hsl(174, 72%, 56%));
+    --gradient-lexis: linear-gradient(135deg, hsl(271, 91%, 65%), hsl(262, 83%, 58%), hsl(320, 86%, 52%));
+    --gradient-neo: linear-gradient(135deg, hsl(215, 28%, 17%), hsl(215, 20%, 65%), hsl(240, 6%, 52%));
+    --gradient-luna: linear-gradient(135deg, hsl(45, 93%, 47%), hsl(25, 95%, 63%), hsl(0, 84%, 60%));
+    --gradient-atlas: linear-gradient(135deg, hsl(43, 96%, 56%), hsl(25, 95%, 63%), hsl(0, 84%, 60%));
+
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-glow: 0 0 40px hsl(262 83% 58% / 0.6);
+    --shadow-card: 0 10px 30px -10px hsl(262 83% 58% / 0.2);
+    --shadow-card-hover: 0 25px 50px -12px hsl(262 83% 58% / 0.35);
+  }
+
+  .dark {
+    --background: 222.2 47% 11%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 15%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 15%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217 33% 18%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 18%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 239 84% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 33% 18%;
+    --input: 217 33% 18%;
+    --ring: 262 83% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .gradient-stellar {
+    background: var(--gradient-stellar);
+  }
+  
+  .gradient-stella {
+    background: var(--gradient-stella);
+  }
+  
+  .gradient-max {
+    background: var(--gradient-max);
+  }
+  
+  .gradient-nova {
+    background: var(--gradient-nova);
+  }
+  
+  .gradient-darwin {
+    background: var(--gradient-darwin);
+  }
+  
+  .gradient-lexis {
+    background: var(--gradient-lexis);
+  }
+  
+  .gradient-neo {
+    background: var(--gradient-neo);
+  }
+  
+  .gradient-luna {
+    background: var(--gradient-luna);
+  }
+  
+  .gradient-atlas {
+    background: var(--gradient-atlas);
+  }
+  
+  .gradient-stellar-subtle {
+    background: linear-gradient(135deg, hsl(239, 84%, 60% / 0.1), hsl(262, 83%, 58% / 0.1), hsl(330, 81%, 60% / 0.1));
+  }
+  
+  .gradient-text {
+    background: var(--gradient-stellar);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .animate-floating {
+    animation: floating 3s ease-in-out infinite;
+  }
+
+  @keyframes floating {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 20px hsl(262 83% 58% / 0.3);
+    }
+    to {
+      box-shadow: var(--shadow-glow);
+    }
+  }
+  
+  .hover-scale {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .hover-scale:hover {
+    transform: scale(1.02);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
